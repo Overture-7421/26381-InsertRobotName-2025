@@ -1,6 +1,15 @@
 repositories {
     mavenCentral()
+    mavenLocal()
     google() // Needed for androidx
+
+    maven {
+        url "https://frcmaven.wpi.edu/artifactory/release/"
+    }
+
+    maven{
+        url "https://overture-7421.github.io/"
+    }
 }
 
 dependencies {
@@ -13,5 +22,6 @@ dependencies {
     implementation 'org.firstinspires.ftc:FtcCommon:10.1.1'
     implementation 'org.firstinspires.ftc:Vision:10.1.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.overture.ftc:overftclib-rc:0.0.6'
 }
 
