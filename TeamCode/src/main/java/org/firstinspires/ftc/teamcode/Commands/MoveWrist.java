@@ -8,19 +8,19 @@ import java.util.concurrent.TimeUnit;
 
 public class MoveWrist extends CommandBase {
     private Wrist wrist;
-    private double wristMotorPosition;
+    private double wristMotorsPosition;
     private Timing.Timer timer;
 
-    public MoveWrist(Wrist wrist, double ClawMotorPosition) {
-        this.wristMotorPosition = ClawMotorPosition;
-        wrist = wrist;
+    public MoveWrist(Wrist wrist, double wristMotorsPosition) {
+        this.wristMotorsPosition = wristMotorsPosition;
+        this.wrist = wrist;
         timer = new Timing.Timer(1, TimeUnit.SECONDS);
         addRequirements(wrist);
     }
 
     @Override
     public void initialize() {
-        wrist.wristPosition(wristMotorPosition);
+        wrist.wristPosition(wristMotorsPosition);
         timer.start();
     }
 

@@ -25,8 +25,8 @@ public class Chassis extends SubsystemBase {
     private double rightOffset = 0.0;
 
     public Chassis (HardwareMap hardwareMap){
-        left_DriveTrain = (DcMotorEx) hardwareMap.get(DcMotor.class,"left_Drive");
-        right_DriveTrain = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_Drive");
+        left_DriveTrain = (DcMotorEx) hardwareMap.get(DcMotor.class,"left_motor");
+        right_DriveTrain = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_motor");
 
         left_DriveTrain.setDirection(DcMotorEx.Direction.FORWARD);
         right_DriveTrain.setDirection(DcMotorEx.Direction.REVERSE);

@@ -88,7 +88,7 @@ public class Arm extends SubsystemBase {
     public double setArmAngle(double armAngle) {
         double voltage = (445.5 * (armAngle-270.0)) / ((armAngle * armAngle) - (270 * armAngle) - 36450);
         return voltage;
-    }
+    }}
 
     /*
     public void setArmTarget(double DesiredPos ){
@@ -100,10 +100,10 @@ public class Arm extends SubsystemBase {
     }
     */
 
-    @Override
+ /*   @Override
     public void periodic(){
         double motorOutput = armPID.calculate(getVoltage());
         arm_Motor.setPower(motorOutput);
     }
 
-}
+}*/

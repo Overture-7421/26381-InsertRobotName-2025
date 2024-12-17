@@ -30,7 +30,7 @@ public class MainSystem extends LinearOpMode {
         Intake intake = new Intake(hardwareMap);
         Wrist wrist = new Wrist(hardwareMap);
         SGrabber sGrabber = new SGrabber(hardwareMap);
-        Arm arm = new Arm(hardwareMap);
+        //Arm arm = new Arm(hardwareMap);
         Elevator elevator = new Elevator(hardwareMap);
         GamepadEx driver = new GamepadEx(gamepad1);
         GamepadEx operator = new GamepadEx(gamepad2);
@@ -46,24 +46,39 @@ public class MainSystem extends LinearOpMode {
         operatorButtonX.whenHeld(new MoveIntake(intake,1.0));
         operatorButtonX.whenReleased(new MoveIntake(intake,0.0));
 
-        Button operatorButtonB= operator.getGamepadButton(GamepadKeys.Button.B);
-        operatorButtonB.whenHeld(new MoveIntake(intake,-1.0));
-        operatorButtonB.whenReleased(new MoveIntake(intake,0.0));
-
-
         Button operatorButtonA= operator.getGamepadButton(GamepadKeys.Button.A);
-        operatorButtonA.whenHeld(new MoveWrist(wrist,1.0));
-        operatorButtonA.whenReleased(new MoveWrist(wrist,0.0));
+        operatorButtonA.whenHeld(new MoveIntake(intake,-1.0));
+        operatorButtonA.whenReleased(new MoveIntake(intake,0.0));
 
 
-        Button operatorButtonDPadUp= operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
+        /*Button operatorButtonA= operator.getGamepadButton(GamepadKeys.Button.A);
+        operatorButtonA.whenPressed(new MoveWrist(wrist,0.0));
+        operatorButtonA.whenReleased(new MoveWrist(wrist,0.0));*/
+
+        Button operatorButtonB= operator.getGamepadButton(GamepadKeys.Button.B);
+        operatorButtonB.whenPressed(new MoveWrist(wrist,0.5));
+        operatorButtonB.whenReleased(new MoveWrist(wrist,0.0));
+
+
+
+
+
+
+        /*Button operatorButtonDPadUp= operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
         operatorButtonDPadUp.whenHeld(new MoveSGrabber(sGrabber,1.0));
         operatorButtonDPadUp.whenReleased(new MoveSGrabber(sGrabber,0.0));
 
 
         Button operatorButtonY= operator.getGamepadButton(GamepadKeys.Button.Y);
         operatorButtonY.whenHeld(new ElevatorPositions(elevator,40));
-        operatorButtonY.whenReleased(new ElevatorPositions(elevator,10));
+        operatorButtonY.whenReleased(new ElevatorPositions(elevator,10));*/
+
+        /*Button operatorButtonY= operator.getGamepadButton(GamepadKeys.Button.Y);
+        operatorButtonY.whenPressed(new ElevatorPositions(elevator,60.0));
+
+        Button operatorButtonA= operator.getGamepadButton(GamepadKeys.Button.A);
+        operatorButtonA.whenPressed(new ElevatorPositions(elevator,0.0));*/
+
 
 
 
@@ -76,14 +91,14 @@ public class MainSystem extends LinearOpMode {
             Pose2d pose = chassis.getPose();
 
             // -- ODOMETRY TELEMETRY -- //
-                /*telemetry.addData("X", pose.getX()); //This will display the telemetry on the DriverHub
+               /* telemetry.addData("X", pose.getX()); //This will display the telemetry on the DriverHub
                 telemetry.addData("Y", pose.getY());
                 telemetry.addData("Heading", pose.getRotation().getDegrees());
                 telemetry.addData("RightDistance", chassis.rightDistance());
                 telemetry.addData("LeftDistance", chassis.leftDistance());
                 telemetry.addData("Potentiometer voltage", arm.getVoltage());*/
-            /*telemetry.addData("Elevator_Distance", elevator.getHeight());
-            telemetry.addData("Maxvoltage", arm.getPointometerMaxVoltage());*/
+            telemetry.addData("Elevator_Distance", elevator.getHeight());
+            //telemetry.addData("Maxvoltage", arm.getPointometerMaxVoltage());
             // -- UPDATE TELEMETRY -- //
             telemetry.update();
         }
