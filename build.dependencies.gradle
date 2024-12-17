@@ -10,6 +10,10 @@ repositories {
     maven{
         url "https://overture-7421.github.io/overturelib/repo/"
     }
+    maven {
+        url "https://maven.brott.dev/"
+    }
+
 }
 
 dependencies {
@@ -24,5 +28,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     //implementation 'com.overture.ftc:overftclib-rc:0.0.6'
     implementation 'com.overture.ftc:overftclib:2025.0.1'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
 }
 

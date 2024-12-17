@@ -21,17 +21,24 @@ import org.firstinspires.ftc.teamcode.Subsystems.SGrabber;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 
 @TeleOp
 public class MainSystem extends LinearOpMode {
     @Override
     public void runOpMode(){
+
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().reset();
+        telemetry = new MultipleTelemetry( FtcDashboard.getInstance().getTelemetry());
+
         Chassis chassis = new Chassis(hardwareMap); //Here you can add every element of the robot
-        Intake intake = new Intake(hardwareMap);
-        Wrist wrist = new Wrist(hardwareMap);
-        SGrabber sGrabber = new SGrabber(hardwareMap);
-        //Arm arm = new Arm(hardwareMap);
-        Elevator elevator = new Elevator(hardwareMap);
+        //Intake intake = new Intake(hardwareMap);
+        //Wrist wrist = new Wrist(hardwareMap);
+        //SGrabber sGrabber = new SGrabber(hardwareMap);
+        Arm arm = new Arm(hardwareMap);
+        //Elevator elevator = new Elevator(hardwareMap);
         GamepadEx driver = new GamepadEx(gamepad1);
         GamepadEx operator = new GamepadEx(gamepad2);
 
@@ -39,25 +46,25 @@ public class MainSystem extends LinearOpMode {
 // -------------------------------------------------------------- //
 // -------------------------------------------------------------- //
 
-        chassis.setDefaultCommand(new Drive(chassis,gamepad1));
+       // chassis.setDefaultCommand(new Drive(chassis,gamepad1));
 
 
-        Button operatorButtonX= operator.getGamepadButton(GamepadKeys.Button.X);
+        /*Button operatorButtonX= operator.getGamepadButton(GamepadKeys.Button.X);
         operatorButtonX.whenHeld(new MoveIntake(intake,1.0));
         operatorButtonX.whenReleased(new MoveIntake(intake,0.0));
 
         Button operatorButtonA= operator.getGamepadButton(GamepadKeys.Button.A);
         operatorButtonA.whenHeld(new MoveIntake(intake,-1.0));
-        operatorButtonA.whenReleased(new MoveIntake(intake,0.0));
+        operatorButtonA.whenReleased(new MoveIntake(intake,0.0));*/
 
 
         /*Button operatorButtonA= operator.getGamepadButton(GamepadKeys.Button.A);
         operatorButtonA.whenPressed(new MoveWrist(wrist,0.0));
         operatorButtonA.whenReleased(new MoveWrist(wrist,0.0));*/
 
-        Button operatorButtonB= operator.getGamepadButton(GamepadKeys.Button.B);
+        /*Button operatorButtonB= operator.getGamepadButton(GamepadKeys.Button.B);
         operatorButtonB.whenPressed(new MoveWrist(wrist,0.5));
-        operatorButtonB.whenReleased(new MoveWrist(wrist,0.0));
+        operatorButtonB.whenReleased(new MoveWrist(wrist,0.0));*/
 
 
 
@@ -97,7 +104,7 @@ public class MainSystem extends LinearOpMode {
                 telemetry.addData("RightDistance", chassis.rightDistance());
                 telemetry.addData("LeftDistance", chassis.leftDistance());
                 telemetry.addData("Potentiometer voltage", arm.getVoltage());*/
-            telemetry.addData("Elevator_Distance", elevator.getHeight());
+            //telemetry.addData("Elevator_Distance", elevator.getHeight());
             //telemetry.addData("Maxvoltage", arm.getPointometerMaxVoltage());
             // -- UPDATE TELEMETRY -- //
             telemetry.update();

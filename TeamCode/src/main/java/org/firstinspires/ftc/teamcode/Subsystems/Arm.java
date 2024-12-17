@@ -1,109 +1,71 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
-import com.overture.ftc.overftclib.Devices.IOverDcMotor;
-import com.qualcomm.robotcore.hardware.AnalogInput;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.overture.ftc.overftclib.Contollers.ProfiledPIDController;
-import com.overture.ftc.overftclib.Contollers.TrapezoidProfile;
-import java.lang.Math;
+
+import com.overture.ftc.overftclib.Contollers.PIDController;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+@Config
 public class Arm extends SubsystemBase {
 
-    private DcMotorEx right_ArmMotor;
-    private DcMotorEx left_ArmMotor;
+    private final DcMotorEx right_Motor;
+    private final DcMotorEx left_Motor;
+    private final PIDController armPID;
+    private final Telemetry telemetry;
 
-    private ProfiledPIDController armPID;
-    private AnalogInput arm_Potentiometer;
+    public static final double COUNTS_PER_REV = 8192;
+    private static final double OFFSET = 43;
+    public static double target = 0;
+    public static double ff = 0.1;
+    //public static double p = 0.0;
 
-    public Arm (HardwareMap hardwareMap){
+    public Arm(HardwareMap hardwareMap) {
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = dashboard.getTelemetry();
+        right_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_ArmMotor");
+        left_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_ArmMotor");
 
-        right_ArmMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_ArmMotor");
-        left_ArmMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_ArmMotor");
+        armPID = new PIDController(0.0, 0, 0.0);
 
-        arm_Potentiometer = (AnalogInput) hardwareMap.get(AnalogInput.class, "potentiometer");
+        right_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        right_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        right_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        armPID = new ProfiledPIDController(0.1,0.0,0.0, new TrapezoidProfile.Constraints (3.0,2.0));
+        left_Motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        left_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        left_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        right_ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        left_ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        right_ArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        left_ArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        right_ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        left_ArmMotor.setDirection(DcMotorSimple.Direction.FORWARD );
-
-    }
-
-
-
-   /* public void resetZero(){
-        ARM_OFFSET= arm_Motor.getCurrentPosition();
-    }
-
-    public double getPosition(){
-        double currentTicks = arm_Motor.getCurrentPosition();
-        double currentPosition = (currentTicks/COUNTS_PER_REV*GEAR_RATIO)-(ARM_OFFSET/360);
-        return currentPosition;
-    }
-
-    public void setTarget(double targetPos){
-        if (armPID.getGoal().position != targetPos){
-            armPID.reset(getPosition());
-            armPID.setGoal(targetPos);
-        }
-    }
-
-    public void setTarget(double targetPosition) {
-        double currentVoltage = potentiometer.getVoltage();
-        armPID.calculate(currentVoltage, targetPosition);
-    }*/
-
-    public double getVoltage() {
-        double currentPosition = arm_Potentiometer.getVoltage();
-        return currentPosition;
-    }
-
-    public double getPointometerMaxVoltage() {
-        double pointometerMaxVoltage = arm_Potentiometer.getMaxVoltage();
-        return pointometerMaxVoltage;
-    }
-
-    public double getPotentiometerAngle(){
-
-        double angle = arm_Potentiometer.getVoltage() * 81.8;
-        return angle;
-
-        /*
-        double appliedVoltage =3.3;
-
-        double PPosition = (getVoltage()/getPointometerMaxVoltage())*(270/appliedVoltage);
-        return PPosition;
-        */
 
     }
 
-    public double setArmAngle(double armAngle) {
-        double voltage = (445.5 * (armAngle-270.0)) / ((armAngle * armAngle) - (270 * armAngle) - 36450);
-        return voltage;
-    }}
-
-    /*
-    public void setArmTarget(double DesiredPos ){
-        double ArmTarget = DesiredPos;
-        while (Math.abs(ArmTarget-getPPosition())>0.05){
-            arm_Motor.setPower(1);
-        }
-        arm_Motor.setPower(0);
-    }
-    */
-
- /*   @Override
-    public void periodic(){
-        double motorOutput = armPID.calculate(getVoltage());
-        arm_Motor.setPower(motorOutput);
+    private double armFeedForward(double angle){
+        return ((Math.cos(Math.toRadians(angle))) * ff);
     }
 
-}*/
+    public double getPosition() {
+        double currentTicks = right_Motor.getCurrentPosition();
+        return ((currentTicks / COUNTS_PER_REV) * 360 );
+    }
+
+    public void setTarget(double targetPos) {
+        target = targetPos;
+    }
+    @Override
+    public void periodic() {
+        double motorOutput = armPID.calculate(getPosition(), target);
+        right_Motor.setPower( armFeedForward(getPosition()));
+        left_Motor.setPower( armFeedForward(getPosition()));
+
+        telemetry.addData("Arm Position", getPosition());
+        telemetry.addData("Arm Target", target);
+
+    }
+}
