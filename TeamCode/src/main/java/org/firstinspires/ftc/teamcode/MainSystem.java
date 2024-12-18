@@ -12,13 +12,13 @@ import com.arcrobotics.ftclib.command.button.Button;
 import org.firstinspires.ftc.teamcode.Commands.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveSGrabber;
 import org.firstinspires.ftc.teamcode.Commands.MoveWrist;
-import org.firstinspires.ftc.teamcode.Commands.Drive;
+//import org.firstinspires.ftc.teamcode.Commands.Drive;
 import org.firstinspires.ftc.teamcode.Commands.ElevatorPositions;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.Subsystems.SGrabber;
-import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
+//import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -33,7 +33,7 @@ public class MainSystem extends LinearOpMode {
         CommandScheduler.getInstance().reset();
         telemetry = new MultipleTelemetry( FtcDashboard.getInstance().getTelemetry());
 
-        Chassis chassis = new Chassis(hardwareMap); //Here you can add every element of the robot
+        //Chassis chassis = new Chassis(hardwareMap); //Here you can add every element of the robot
         //Intake intake = new Intake(hardwareMap);
         //Wrist wrist = new Wrist(hardwareMap);
         //SGrabber sGrabber = new SGrabber(hardwareMap);
@@ -91,11 +91,11 @@ public class MainSystem extends LinearOpMode {
 
 
         waitForStart();
-        chassis.reset(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+        //chassis.reset(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
 
         while (opModeIsActive()) { //This will occur whenever the op mode is active
             CommandScheduler.getInstance().run();
-            Pose2d pose = chassis.getPose();
+            //Pose2d pose = chassis.getPose();
 
             // -- ODOMETRY TELEMETRY -- //
                /* telemetry.addData("X", pose.getX()); //This will display the telemetry on the DriverHub

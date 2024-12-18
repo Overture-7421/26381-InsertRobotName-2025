@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Commands;
+/*
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.overture.ftc.overftclib.Contollers.TrapezoidProfile;
@@ -33,6 +34,8 @@ public class Drive extends CommandBase {
         rightState = rightProfile.calculate(0.5, rightState,  new TrapezoidProfile.State(right, 0.0));
         leftState = leftProfile.calculate(0.5, leftState, new TrapezoidProfile.State(left, 0.0));
 
-        chassis.setVelocity(leftState.position, rightState.position);
+        //chassis.setVelocity(leftState.position, rightState.position);
     }
 }
+
+ */

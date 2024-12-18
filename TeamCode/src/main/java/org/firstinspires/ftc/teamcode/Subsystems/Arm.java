@@ -23,7 +23,7 @@ public class Arm extends SubsystemBase {
     private static final double OFFSET = 43;
     public static double target = 0;
     public static double ff = 0.1;
-    //public static double p = 0.0;
+    public static double p = 0.0;
 
     public Arm(HardwareMap hardwareMap) {
         FtcDashboard dashboard = FtcDashboard.getInstance();
@@ -31,7 +31,7 @@ public class Arm extends SubsystemBase {
         right_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_ArmMotor");
         left_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_ArmMotor");
 
-        armPID = new PIDController(0.0, 0, 0.0);
+        armPID = new PIDController(p, 0, 0.0);
 
         right_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -51,8 +51,8 @@ public class Arm extends SubsystemBase {
     }
 
     public double getPosition() {
-        double currentTicks = right_Motor.getCurrentPosition();
-        return ((currentTicks / COUNTS_PER_REV) * 360 );
+        double currentTicks = left_Motor.getCurrentPosition();
+        return ((-currentTicks / COUNTS_PER_REV) * 360 - OFFSET);
     }
 
     public void setTarget(double targetPos) {
@@ -61,8 +61,8 @@ public class Arm extends SubsystemBase {
     @Override
     public void periodic() {
         double motorOutput = armPID.calculate(getPosition(), target);
-        right_Motor.setPower( armFeedForward(getPosition()));
-        left_Motor.setPower( armFeedForward(getPosition()));
+        right_Motor.setPower( motorOutput + armFeedForward(getPosition()));
+        left_Motor.setPower(motorOutput +  armFeedForward(getPosition()));
 
         telemetry.addData("Arm Position", getPosition());
         telemetry.addData("Arm Target", target);
