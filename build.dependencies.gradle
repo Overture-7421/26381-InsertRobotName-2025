@@ -8,7 +8,11 @@ repositories {
     }
 
     maven{
-        url "https://overture-7421.github.io/"
+        url "https://overture-7421.github.io/overturelib/repo/"
+    }
+
+    maven {
+        url "https://maven.brott.dev/"
     }
 }
 
@@ -21,7 +25,10 @@ dependencies {
     implementation 'org.firstinspires.ftc:Hardware:10.1.1'
     implementation 'org.firstinspires.ftc:FtcCommon:10.1.1'
     implementation 'org.firstinspires.ftc:Vision:10.1.1'
+    implementation 'org.ftclib.ftclib:core:2.1.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.overture.ftc:overftclib-rc:0.0.6'
+    //implementation 'com.overture.ftc:overftclib-rc:0.0.6'
+    implementation 'com.overture.ftc:overftclib:2025.0.1'
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
 }
 
