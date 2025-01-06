@@ -28,8 +28,8 @@ public class Elevator extends SubsystemBase {
         right_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         left_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        right_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-        left_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        right_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        left_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         right_elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         left_elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);

@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Commands;
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
-
-
 public class ElevatorPositions extends CommandBase {
 
     private final Elevator elevator;
