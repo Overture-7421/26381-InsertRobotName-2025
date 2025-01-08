@@ -52,17 +52,18 @@ public class Arm extends SubsystemBase {
         return ((-currentTicks / COUNTS_PER_REV) * 360 - OFFSET);
     }
 
-    public void setTarget(double targetPos) {
-        target = targetPos;
+    public void setTarget(double targetPos) {/*target = targetPos;*/
     }
 
     @Override
     public void periodic() {
-        double motorOutput = armPID.calculate(getPosition(), target);
+        /*double motorOutput = armPID.calculate(getPosition(), target);
         right_Motor.setPower( motorOutput + armFeedForward(getPosition()));
         left_Motor.setPower(motorOutput +  armFeedForward(getPosition()));
 
         telemetry.addData("Arm Position", getPosition());
         telemetry.addData("Arm Target", target);
+
+         */
     }
 }

@@ -67,20 +67,24 @@ public class Elevator extends SubsystemBase {
     }
 
 
-    public void setGoal(double goalHeight) {
+    public void setGoal(double goalHeight) {/*
         if(elevatorMotorPID.getGoal().position != goalHeight) {
             elevatorMotorPID.reset(getHeight());
             elevatorMotorPID.setGoal(goalHeight);
+
         }
+        */
     }
 
 
     //Periodic actions used for positional Elevator
     @Override
     public void periodic() {
-        double outputMotor = elevatorMotorPID.calculate(getHeight());
+        /*double outputMotor = elevatorMotorPID.calculate(getHeight());
         right_elevatorMotor.setPower(outputMotor);
         left_elevatorMotor.setPower(outputMotor);
+
+
 
         if(getHeight() > 97){
             right_elevatorMotor.setPower(0.0);
@@ -91,5 +95,7 @@ public class Elevator extends SubsystemBase {
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
         }
+
+         */
     }
 }

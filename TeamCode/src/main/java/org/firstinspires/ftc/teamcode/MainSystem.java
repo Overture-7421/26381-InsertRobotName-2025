@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.command.button.Button;
 
-import org.firstinspires.ftc.teamcode.Commands.MoveIntake;
+import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveSGrabber;
 import org.firstinspires.ftc.teamcode.Commands.MoveWrist;
 import org.firstinspires.ftc.teamcode.Commands.Drive;
-import org.firstinspires.ftc.teamcode.Commands.ElevatorPositions;
+import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
@@ -86,12 +86,15 @@ public class MainSystem extends LinearOpMode {
             Pose2d pose = chassis.getPose();
 
             // -- ODOMETRY TELEMETRY -- //
+
                 telemetry.addData("X", pose.getX()); //This will display the telemetry on the DriverHub
                 telemetry.addData("Y", pose.getY());
                 telemetry.addData("Heading", pose.getRotation().getDegrees());
                 telemetry.addData("RightDistance", chassis.rightDistance());
                 telemetry.addData("LeftDistance", chassis.leftDistance());
-                telemetry.addData("Elevator_Distance", elevator.getHeight());
+                telemetry.addLine("---- Medidas ---");
+                telemetry.addData("Elevator Distance", elevator.getHeight());
+                telemetry.addData("Arm Position", arm.getPosition());
 
             // -- UPDATE TELEMETRY -- //
                 telemetry.update();
