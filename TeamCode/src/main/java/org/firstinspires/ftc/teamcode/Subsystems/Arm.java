@@ -19,10 +19,10 @@ public class Arm extends SubsystemBase {
     private final Telemetry telemetry;
 
     public static final double COUNTS_PER_REV = 8192;
-    private static final double OFFSET = 43;
-    public static double target = 0;
-    public static double ff = 0.1;
-    public static double p = 0.0;
+    private static final double OFFSET = 31;
+    public static double target = -31;
+    public static double ff = 0.49;
+    public static double p = 0.0495;
 
     public Arm(HardwareMap hardwareMap) {
         FtcDashboard dashboard = FtcDashboard.getInstance();
@@ -49,21 +49,17 @@ public class Arm extends SubsystemBase {
 
     public double getPosition() {
         double currentTicks = left_Motor.getCurrentPosition();
-        return ((-currentTicks / COUNTS_PER_REV) * 360 - OFFSET);
+        return ((currentTicks / COUNTS_PER_REV) * 360 - OFFSET);
     }
 
-    public void setTarget(double targetPos) {/*target = targetPos;*/
+    public void setTarget(double targetPos) {
+        target = targetPos;
     }
 
     @Override
     public void periodic() {
-        /*double motorOutput = armPID.calculate(getPosition(), target);
-        right_Motor.setPower( motorOutput + armFeedForward(getPosition()));
-        left_Motor.setPower(motorOutput +  armFeedForward(getPosition()));
-
-        telemetry.addData("Arm Position", getPosition());
-        telemetry.addData("Arm Target", target);
-
-         */
+        double motorOutput= armPID.calculate(getPosition(), target);
+        left_Motor.setPower(motorOutput + armFeedForward(getPosition()));
+        right_Motor.setPower(motorOutput + armFeedForward(getPosition()));
     }
 }

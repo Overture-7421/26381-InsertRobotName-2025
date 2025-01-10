@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.command.button.Button;
 
+import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveSGrabber;
 import org.firstinspires.ftc.teamcode.Commands.MoveWrist;
@@ -30,7 +31,7 @@ public class MainSystem extends LinearOpMode {
 
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().reset();
-        telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry());
+        //telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry());
 
         /* SUBSYSTEM DECLARATION */
             Chassis chassis = new Chassis(hardwareMap);
@@ -49,7 +50,7 @@ public class MainSystem extends LinearOpMode {
             chassis.setDefaultCommand(new Drive(chassis, gamepad1));
 
             // INTAKE
-            Button driverButtonX = driver.getGamepadButton(GamepadKeys.Button.X);
+           /* Button driverButtonX = driver.getGamepadButton(GamepadKeys.Button.X);
             driverButtonX.whenHeld(new MoveIntake(intake, 1.0));
             driverButtonX.whenReleased(new MoveIntake(intake, 0.0));
 
@@ -69,14 +70,24 @@ public class MainSystem extends LinearOpMode {
             // GRABBER
             Button operatorButtonDPadUp = operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
             operatorButtonDPadUp.whenHeld(new MoveSGrabber(sGrabber, 1.0));
-            operatorButtonDPadUp.whenReleased(new MoveSGrabber(sGrabber, 0.0));
+            operatorButtonDPadUp.whenReleased(new MoveSGrabber(sGrabber, 0.0));*/
 
             // ELEVATOR
-            Button operatorRightBumper= operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-            operatorRightBumper.whenPressed(new ElevatorPositions(elevator,60.0));
+            Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
+            operatorAButton.whenPressed(new ElevatorPositions(elevator,50.0));
 
             Button operatorLeftBumper= operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
             operatorLeftBumper.whenPressed(new ElevatorPositions(elevator,0.0));
+
+            //Arm
+            Button operatorButtonDPadUp = operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
+            operatorButtonDPadUp.whenHeld(new MoveArm(arm ,0));
+
+            Button operatorButtonDPadDown = operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
+            operatorButtonDPadDown.whenHeld(new MoveArm(arm ,90));
+
+            Button operatorButtonDPadRight = operator.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
+            operatorButtonDPadRight.whenHeld(new MoveArm(arm ,50));
 
         waitForStart();
         chassis.reset(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
