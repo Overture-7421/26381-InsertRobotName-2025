@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands;
 
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -14,8 +15,10 @@ public class StowAll extends SequentialCommandGroup {
 
     public StowAll (Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
+               new ParallelCommandGroup(
                 new MoveWrist(wrist, 0.0)
-,                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW).withTimeout(300),
+,               new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW).withTimeout(500)),
+
                 new WaitCommand(400),
                 new MoveArm(arm, Constants.Arm.ARM_STOW).withTimeout(300)
         );

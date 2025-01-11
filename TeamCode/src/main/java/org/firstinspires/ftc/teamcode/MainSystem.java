@@ -68,6 +68,10 @@ public class MainSystem extends LinearOpMode {
             Button driverButtonRightBumper = driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
             driverButtonRightBumper.whenPressed(new GroundGrab(arm, elevator, wrist));
 
+            Button driverButtonLeftBumper = driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+            driverButtonLeftBumper.whenPressed(new MoveWrist(wrist, 0.6) );
+
+
             // GRABBER
             //Button operatorButtonLeftBumper = operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
             //operatorButtonLeftBumper.whenHeld(new MoveSGrabber(sGrabber, 0.2));
@@ -87,14 +91,10 @@ public class MainSystem extends LinearOpMode {
             Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
             operatorButtonY.whenPressed(new HighChamber(arm, elevator, wrist));
 
-            //Button operatorButtonRightBumper = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-            //operatorButtonRightBumper.whenPressed(new StowAll(arm, elevator, wrist));
+            Button operatorButtonRightBumper = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+            operatorButtonRightBumper.whenPressed(new StowAll(arm, elevator, wrist));
 
-            Button operatorButtonLeftBumper = operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-            operatorButtonLeftBumper.whenPressed(new MoveWrist(wrist, 0.0));
 
-            Button operatorButtonLeftBumpe = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-            operatorButtonLeftBumpe.whenPressed(new MoveWrist(wrist, 0.6));
 
 
 

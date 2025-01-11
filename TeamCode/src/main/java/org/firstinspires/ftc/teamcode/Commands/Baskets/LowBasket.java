@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Commands.Baskets;
 
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -20,8 +21,10 @@ public class LowBasket extends SequentialCommandGroup {
         addCommands(
                 new MoveArm(arm, Constants.Arm.ARM_LOWBASKET).withTimeout(500),
                 new WaitCommand(1000),
-                new MoveWrist(wrist, 0),
+
+                new ParallelCommandGroup( new MoveWrist(wrist, 0.2),
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_LOWBASKET).withTimeout(500)
+                )
         );
 
     }
