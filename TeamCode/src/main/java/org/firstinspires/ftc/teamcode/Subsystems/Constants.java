@@ -8,7 +8,7 @@ public final class Constants {
     public static class Arm {
         /* ARM POSITIONS */
         public static final double ARM_STOW = -20;
-        public static final double ARM_GROUNDGRAB = -15;
+        public static final double ARM_GROUNDGRAB = -18;
         public static final double ARM_CLIMB = 90; /* PENDING TEST */
 
         // BASKETS

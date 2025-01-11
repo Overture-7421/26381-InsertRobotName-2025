@@ -94,7 +94,7 @@ public class MainSystem extends LinearOpMode {
             operatorButtonLeftBumper.whenPressed(new MoveWrist(wrist, 0.0));
 
             Button operatorButtonLeftBumpe = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-            operatorButtonLeftBumpe.whenPressed(new MoveWrist(wrist, 1.0));
+            operatorButtonLeftBumpe.whenPressed(new MoveWrist(wrist, 0.6));
 
 
 

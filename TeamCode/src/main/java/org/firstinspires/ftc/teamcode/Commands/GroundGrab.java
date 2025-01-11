@@ -14,10 +14,10 @@ public class GroundGrab extends SequentialCommandGroup {
     public  GroundGrab(Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
 
-                new MoveArm(arm, Constants.Arm.ARM_GROUNDGRAB),
+                new MoveArm(arm, Constants.Arm.ARM_GROUNDGRAB).withTimeout(1000),
                 new WaitCommand(500),
-                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUNDGRAB),
-                new MoveWrist(wrist, 0.7)
+                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUNDGRAB).withTimeout(1000),
+                new MoveWrist(wrist, 0.6)
 
 
         );
