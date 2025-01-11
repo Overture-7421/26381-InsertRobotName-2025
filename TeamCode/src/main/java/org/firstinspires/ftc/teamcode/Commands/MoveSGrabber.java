@@ -11,7 +11,7 @@ public class MoveSGrabber extends CommandBase {
 
     public MoveSGrabber(SGrabber sGrabber, double Sgrabber_Position) {
         this.Sgrabber_Position = Sgrabber_Position;
-        sGrabber = sGrabber;
+        this.sGrabber = sGrabber;
         timer = new Timing.Timer(1, TimeUnit.SECONDS);
         addRequirements(sGrabber);
     }

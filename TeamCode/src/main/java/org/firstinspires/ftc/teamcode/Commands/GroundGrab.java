@@ -4,20 +4,23 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
+import org.firstinspires.ftc.teamcode.Subsystems.Constants;
+import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
 
-public class SpecimenPickUp extends SequentialCommandGroup {
+public class GroundGrab extends SequentialCommandGroup {
 
-    public  SpecimenPickUp(Arm arm, Elevator elevator){
+    public  GroundGrab(Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
 
-                new MoveArm(arm, 1.0),
+                new MoveArm(arm, Constants.Arm.ARM_GROUNDGRAB),
                 new WaitCommand(500),
-                new ElevatorPositions(elevator, 1.0)
+                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUNDGRAB),
+                new MoveWrist(wrist, 0.7)
+
 
         );
-
 
     }
 

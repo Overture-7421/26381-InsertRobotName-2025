@@ -9,12 +9,18 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.command.button.Button;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
+import org.firstinspires.ftc.teamcode.Commands.Baskets.HighBasket;
+import org.firstinspires.ftc.teamcode.Commands.Baskets.LowBasket;
+import org.firstinspires.ftc.teamcode.Commands.Chambers.HighChamber;
+import org.firstinspires.ftc.teamcode.Commands.Chambers.LowChamber;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.MoveSGrabber;
 import org.firstinspires.ftc.teamcode.Commands.MoveWrist;
 import org.firstinspires.ftc.teamcode.Commands.Drive;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
 
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.Subsystems.SGrabber;
@@ -50,44 +56,48 @@ public class MainSystem extends LinearOpMode {
             chassis.setDefaultCommand(new Drive(chassis, gamepad1));
 
             // INTAKE
-           /* Button driverButtonX = driver.getGamepadButton(GamepadKeys.Button.X);
+            Button driverButtonX = driver.getGamepadButton(GamepadKeys.Button.X);
             driverButtonX.whenHeld(new MoveIntake(intake, 1.0));
             driverButtonX.whenReleased(new MoveIntake(intake, 0.0));
 
-            Button driverButtonA = driver.getGamepadButton(GamepadKeys.Button.A);
-            driverButtonA.whenHeld(new MoveIntake(intake, -1.0));
-            driverButtonA.whenReleased(new MoveIntake(intake, 0.0));
+            Button driverButtonB = driver.getGamepadButton(GamepadKeys.Button.B);
+            driverButtonB.whenHeld(new MoveIntake(intake, -1.0));
+            driverButtonB.whenReleased(new MoveIntake(intake, 0.0));
 
-            // WRIST
-            Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
-            operatorButtonY.whenPressed(new MoveWrist(wrist, 0.0));
-            operatorButtonY.whenReleased(new MoveWrist(wrist, 0.0));
-
-            Button operatorButtonB = operator.getGamepadButton(GamepadKeys.Button.B);
-            operatorButtonB.whenPressed(new MoveWrist(wrist, 0.5));
-            operatorButtonB.whenReleased(new MoveWrist(wrist, 0.0));
+            //GroundGrab
+            Button driverButtonRightBumper = driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+            driverButtonRightBumper.whenPressed(new GroundGrab(arm, elevator, wrist));
 
             // GRABBER
-            Button operatorButtonDPadUp = operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-            operatorButtonDPadUp.whenHeld(new MoveSGrabber(sGrabber, 1.0));
-            operatorButtonDPadUp.whenReleased(new MoveSGrabber(sGrabber, 0.0));*/
+            //Button operatorButtonLeftBumper = operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+            //operatorButtonLeftBumper.whenHeld(new MoveSGrabber(sGrabber, 0.2));
+            //operatorButtonLeftBumper.whenReleased(new MoveSGrabber(sGrabber, 0.0));
 
-            // ELEVATOR
+            // Baskets
+            Button operatorBButton= operator.getGamepadButton(GamepadKeys.Button.B);
+            operatorBButton.whenPressed(new HighBasket(arm, elevator, wrist));
+
             Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
-            operatorAButton.whenPressed(new ElevatorPositions(elevator,50.0));
+            operatorAButton.whenPressed(new LowBasket(arm, elevator, wrist));
 
-            Button operatorLeftBumper= operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-            operatorLeftBumper.whenPressed(new ElevatorPositions(elevator,0.0));
+            //Chambers
+            Button operatorButtonX = operator.getGamepadButton(GamepadKeys.Button.X);
+            operatorButtonX.whenPressed(new LowChamber(arm, elevator, wrist));
 
-            //Arm
-            Button operatorButtonDPadUp = operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
-            operatorButtonDPadUp.whenHeld(new MoveArm(arm ,0));
+            Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
+            operatorButtonY.whenPressed(new HighChamber(arm, elevator, wrist));
 
-            Button operatorButtonDPadDown = operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
-            operatorButtonDPadDown.whenHeld(new MoveArm(arm ,90));
+            //Button operatorButtonRightBumper = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+            //operatorButtonRightBumper.whenPressed(new StowAll(arm, elevator, wrist));
 
-            Button operatorButtonDPadRight = operator.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
-            operatorButtonDPadRight.whenHeld(new MoveArm(arm ,50));
+            Button operatorButtonLeftBumper = operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+            operatorButtonLeftBumper.whenPressed(new MoveWrist(wrist, 0.0));
+
+            Button operatorButtonLeftBumpe = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+            operatorButtonLeftBumpe.whenPressed(new MoveWrist(wrist, 1.0));
+
+
+
 
         waitForStart();
         chassis.reset(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
@@ -106,6 +116,8 @@ public class MainSystem extends LinearOpMode {
                 telemetry.addLine("---- Medidas ---");
                 telemetry.addData("Elevator Distance", elevator.getHeight());
                 telemetry.addData("Arm Position", arm.getPosition());
+                telemetry.addData("Right Servo:", wrist.getRightServoPosition());
+                telemetry.addData("Left Servo:", wrist.getLeftServoPosition());
 
             // -- UPDATE TELEMETRY -- //
                 telemetry.update();

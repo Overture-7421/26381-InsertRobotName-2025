@@ -6,15 +6,17 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.overture.ftc.overftclib.Contollers.PIDController;
 
 public class Elevator extends SubsystemBase {
 
     private final DcMotorEx right_elevatorMotor;
     private final DcMotorEx left_elevatorMotor;
-    private ProfiledPIDController elevatorMotorPID;
+    private PIDController elevatorMotorPID;
     public static final double TICKS_PER_REVOLUTION = 384.5;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 12.0008738;    // In Meters diameter: 3.82 cm
     public static final double GEAR_REDUCTION = 13.7;
+    private  double target = 0;
 
     private double motorOffset = 0.0;
 
@@ -22,7 +24,7 @@ public class Elevator extends SubsystemBase {
         right_elevatorMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightelevator_Motor");
         left_elevatorMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "leftelevator_Motor");
 
-        elevatorMotorPID = new ProfiledPIDController(0.6,0,0, new TrapezoidProfile.Constraints(130.0,100.0));
+        elevatorMotorPID = new PIDController(0.098, 0, 0);
 
 
         right_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -34,16 +36,9 @@ public class Elevator extends SubsystemBase {
         right_elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         left_elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        resetZero();
 
-        elevatorMotorPID.reset(getHeight());
-        elevatorMotorPID.setGoal(getHeight());
 
-    }
 
-    public void resetZero() {
-        motorOffset = right_elevatorMotor.getCurrentPosition();
-        motorOffset = left_elevatorMotor.getCurrentPosition();
     }
 
 
@@ -68,30 +63,26 @@ public class Elevator extends SubsystemBase {
 
 
     public void setGoal(double goalHeight) {
-        if(elevatorMotorPID.getGoal().position != goalHeight) {
-            elevatorMotorPID.reset(getHeight());
-            elevatorMotorPID.setGoal(goalHeight);
-
-        }
-
+        target = goalHeight;
     }
+
 
 
     //Periodic actions used for positional Elevator
     @Override
     public void periodic() {
-        double outputMotor = elevatorMotorPID.calculate(getHeight());
+        double outputMotor = elevatorMotorPID.calculate(getHeight(), target);
         right_elevatorMotor.setPower(outputMotor);
         left_elevatorMotor.setPower(outputMotor);
 
 
 
-        if(getHeight() > 97){
+        if(getHeight() > 70){
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
         }
 
-        if(getHeight() < -0.1){
+        if(getHeight() < - 0.1){
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
         }
