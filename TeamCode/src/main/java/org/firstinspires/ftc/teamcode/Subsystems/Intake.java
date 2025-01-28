@@ -6,21 +6,25 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake extends SubsystemBase {
 
-    private CRServo intake_Servo;
+    private CRServo intake_RightServo;
+    private CRServo intake_LeftServo;
 
     public Intake(HardwareMap hardwareMap){
-        intake_Servo = hardwareMap.get(CRServo.class, "grabServo");
-        intake_Servo.setDirection(CRServo.Direction.FORWARD);
+        intake_RightServo = hardwareMap.get(CRServo.class, "intakeRightServo");
+        intake_RightServo.setDirection(CRServo.Direction.FORWARD);
+
+        intake_LeftServo = hardwareMap.get(CRServo.class, "intakeLeftServo");
+        intake_LeftServo.setDirection(CRServo.Direction.FORWARD);
     }
 
-    // Method to set the servo's speed
     public void setSpeed(double speed) {
-        intake_Servo.setPower(speed); // Speed ranges from -1.0 to 1.0
+        intake_RightServo.setPower(speed); // Speed ranges from -1.0 to 1.0
+        intake_LeftServo.setPower(speed); // Speed ranges from -1.0 to 1.0
     }
 
-    // Method to stop the servo
     public void stop() {
-        intake_Servo.setPower(0);
+        intake_RightServo.setPower(0);
+        intake_LeftServo.setPower(0);
     }
 
 }
