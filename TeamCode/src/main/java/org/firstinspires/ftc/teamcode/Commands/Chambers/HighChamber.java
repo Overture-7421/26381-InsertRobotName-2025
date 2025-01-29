@@ -17,16 +17,12 @@ public class HighChamber extends SequentialCommandGroup {
         addCommands(
 
                 new MoveArm(arm, Constants.Arm.ARM_HIGHCHAMBER),
-                new WaitCommand(5000), //tienes que pegar el chasis a la estructura
+                new WaitCommand(5000),
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_HIGHCHAMBER),
                 new WaitCommand(5000),
                 new MoveArm(arm, 24),
                 new WaitCommand(5000),
                 new StowAll(arm, elevator, wrist)
-
         );
-
-
     }
-
 }

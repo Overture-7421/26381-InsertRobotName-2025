@@ -12,20 +12,13 @@ import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
 public class LowChamber extends SequentialCommandGroup {
 
-    //tiene que ser parallel a fuerza porque necesitamos que el chasis
-    // se mueva mientras el brazo ejerce una ligera presión sobre la barra
-
     public LowChamber (Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
                 new MoveArm(arm, Constants.Arm.ARM_LOWCHAMBER).withTimeout(500),
-                new WaitCommand(3000), // Tienes que pegarte el chassis a la estructura
+                new WaitCommand(3000),
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_LOWCHAMBER),
                 new WaitCommand(3000),
                 new StowAll(arm, elevator,wrist)
-
         );
-
-
     }
-
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands;
+package org.firstinspires.ftc.teamcode.Commands.GroundGrab;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.Subsystems.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
-public class StowAll extends SequentialCommandGroup {
-
-    public StowAll (Arm arm, Elevator elevator, Wrist wrist){
+public class GroundGrabMedium extends SequentialCommandGroup {
+    public GroundGrabMedium(Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
-               new ParallelCommandGroup(
-                new MoveWrist(wrist, Constants.Wrist.WRIST_STOW)
-,               new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW).withTimeout(500)),
 
-                new WaitCommand(400),
-                new MoveArm(arm, Constants.Arm.ARM_STOW).withTimeout(300)
+                new MoveArm(arm, Constants.Arm.ARM_GROUDGRAB_MEDIUM).withTimeout(1000),
+                new WaitCommand(500),
+                new ParallelCommandGroup( new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUDGRAB_MEDIUM).withTimeout(1000),
+                        new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM).withTimeout(1000)
+                )
         );
-    }
-}
 
+    }
+
+}
