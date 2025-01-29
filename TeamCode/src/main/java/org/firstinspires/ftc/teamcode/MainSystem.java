@@ -138,7 +138,7 @@ public class MainSystem extends LinearOpMode {
                 telemetry.addData("Heading", pose.getRotation().getDegrees());
                 telemetry.addData("RightDistance", chassis.rightDistance());
                 telemetry.addData("LeftDistance", chassis.leftDistance());
-                telemetry.addLine("---- Medidas ---");
+                telemetry.addLine("---- MEASUREMENTS ---");
                 telemetry.addData("Elevator Distance", elevator.getHeight());
                 telemetry.addData("Arm Position", arm.getPosition());
                 telemetry.addData("Right Servo:", wrist.getRightServoPosition());
