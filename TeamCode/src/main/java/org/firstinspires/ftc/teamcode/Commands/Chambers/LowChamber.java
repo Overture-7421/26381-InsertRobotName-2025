@@ -20,8 +20,5 @@ public class LowChamber extends SequentialCommandGroup {
                 new WaitCommand(3000),
                 new StowAll(arm, elevator,wrist)
         );
-
-
     }
-
 }

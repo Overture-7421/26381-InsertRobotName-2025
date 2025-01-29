@@ -13,8 +13,8 @@ public class Wrist extends SubsystemBase {
 
     public Wrist (HardwareMap hardwareMap) {
         //Servos IDs
-        wrist_RightServo = new SimpleServo(hardwareMap, "wrist_RightServo", 0, 1.0);
-        wrist_LeftServo = new SimpleServo(hardwareMap, "wrist_LeftServo", 0, 1.0);
+        wrist_RightServo = new SimpleServo(hardwareMap, "wrist_RightServo", 0, 2.0);
+        wrist_LeftServo = new SimpleServo(hardwareMap, "wrist_LeftServo", 0, 2.0);
         wrist_LeftServo.setInverted(false);
         wrist_RightServo.setInverted(true);
     }

@@ -19,7 +19,7 @@ public class LowBasket extends SequentialCommandGroup {
                 new MoveArm(arm, Constants.Arm.ARM_LOWBASKET).withTimeout(500),
                 new WaitCommand(1000),
 
-                new ParallelCommandGroup( new MoveWrist(wrist, Constants.Wrist.WRIST_LOWBASKET),
+                new ParallelCommandGroup( new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM),
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_LOWBASKET).withTimeout(500)
                 )
         );

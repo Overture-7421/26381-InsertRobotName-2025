@@ -67,6 +67,7 @@ public class Chassis extends SubsystemBase {
     public void periodic(){
         differentialDriveOdometry.update(getIMUHeading(),leftDistance(),rightDistance());
     }
+
     private Rotation2d getIMUHeading(){
         YawPitchRollAngles robotOrientation;
         robotOrientation = imu.getRobotYawPitchRollAngles();

@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase {
         intake_RightServo.setDirection(CRServo.Direction.FORWARD);
 
         intake_LeftServo = hardwareMap.get(CRServo.class, "intakeLeftServo");
-        intake_LeftServo.setDirection(CRServo.Direction.FORWARD);
+        intake_LeftServo.setDirection(CRServo.Direction.REVERSE);
     }
 
     public void setSpeed(double speed) {

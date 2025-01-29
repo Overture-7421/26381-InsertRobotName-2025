@@ -23,10 +23,6 @@ public class HighChamber extends SequentialCommandGroup {
                 new MoveArm(arm, 24),
                 new WaitCommand(5000),
                 new StowAll(arm, elevator, wrist)
-
         );
-
-
     }
-
 }
