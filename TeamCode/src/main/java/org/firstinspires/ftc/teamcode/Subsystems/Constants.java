@@ -13,7 +13,7 @@ public final class Constants {
 
     /* ARM POSITIONS */
     public static class Arm {
-        public static final double ARM_STOW = -20;
+        public static final double ARM_STOW = -10;
 
         public static final double ARM_GROUDGRAB_SHORT = -10;
         public static final double ARM_GROUDGRAB_MEDIUM = -15;
@@ -24,8 +24,8 @@ public final class Constants {
         public static final double ARM_HIGHBASKET = 88;
 
         // CHAMBERS
-        public static final double ARM_LOWCHAMBER = 89;
-        public static final double ARM_HIGHCHAMBER = 89;
+        public static final double ARM_LOWCHAMBER = 45;
+        public static final double ARM_HIGHCHAMBER = 45;
     }
 
     /* ELEVATOR POSITIONS */
@@ -43,7 +43,7 @@ public final class Constants {
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3;
-        public static final double ELEVATOR_HIGHCHAMBER = 36;
+        public static final double ELEVATOR_HIGHCHAMBER = 30;
 
     }
 }

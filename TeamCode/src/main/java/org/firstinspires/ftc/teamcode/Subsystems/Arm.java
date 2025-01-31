@@ -21,7 +21,7 @@ public class Arm extends SubsystemBase {
     public static final double COUNTS_PER_REV = 8192;
     private static final double OFFSET = 31;
     public static double target = -31;
-    public static double ff = 0.499;
+    public static double ff = 0.5; //Previous 0.499
     public static double p = 0.045;
 
     public Arm(HardwareMap hardwareMap) {
