@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.HighBasket;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabLong;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabShort;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
@@ -54,7 +55,7 @@ public class HighBasketAndPark extends LinearOpMode {
 
         Trajectory First = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0.0,0.0,Rotation2d.fromDegrees(0)),
-                new Pose2d(-1.08, 0.28,Rotation2d.fromDegrees(45))), ReverseConfig
+                new Pose2d(-1.08, 0.24,Rotation2d.fromDegrees(45))), ReverseConfig
         );
 
         /*Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
@@ -69,18 +70,14 @@ public class HighBasketAndPark extends LinearOpMode {
                 new RamsetteCommand(chassis, First),
                 new HighBasket(arm, elevator, wrist, intake), //Pending Test
                 new StowAll(arm, elevator, wrist),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
-                new GroundGrabLong(arm, elevator, wrist),
-                new MoveIntake(intake, Constants.Intake.INTAKE_GRAB),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(93)),
+                new GroundGrabShort(arm, elevator, wrist),
+                new MoveIntake(intake, Constants.Intake.INTAKE_STOW),
+                new StowAll(arm, elevator, wrist),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(48)),
+                new HighBasket(arm, elevator, wrist, intake), //Pending Test
                 new StowAll(arm, elevator, wrist),
                 new MoveIntake(intake, Constants.Intake.INTAKE_STOW)
-                //Test Later
-                /*new GroundGrabLong(arm, elevator, wrist),
-                new MoveIntake(intake, 0.3),
-                new StowAll(arm, elevator, wrist),
-                new HighBasket(arm, elevator, wrist), //Pending Test
-                new StowAll(arm, elevator, wrist),
-                new MoveIntake(intake, 0.1).withTimeout(700)*/
 
         );
 
