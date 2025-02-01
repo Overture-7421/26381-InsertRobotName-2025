@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.HighBasket;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabLong;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
@@ -39,6 +40,7 @@ public class HighBasketAndPark extends LinearOpMode {
         Chassis chassis = new Chassis(hardwareMap);
         Elevator elevator= new Elevator(hardwareMap);
         Arm arm = new Arm(hardwareMap);
+        Wrist wrist = new Wrist(hardwareMap);
         Intake intake = new Intake(hardwareMap);
 
 
@@ -51,15 +53,29 @@ public class HighBasketAndPark extends LinearOpMode {
         ReverseConfig.setReversed(true);
 
         Trajectory First = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.05,-0.38,Rotation2d.fromDegrees(-45))), ForwardConfig
+                new Pose2d(0.0,0.0,Rotation2d.fromDegrees(0)),
+                new Pose2d(-1.08, 0.28,Rotation2d.fromDegrees(45))), ReverseConfig
         );
+
+        Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+                new Pose2d(-1.08,0.28,Rotation2d.fromDegrees(45)),
+                new Pose2d(-0.90, 0.60,Rotation2d.fromDegrees(60))), ForwardConfig
+        );
+
+
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
 
                 new RamsetteCommand(chassis, First),
+                new HighBasket(arm, elevator,wrist),
                 new WaitCommand(2000),
-                new HighBasket(arm, elevator, new Wrist(hardwareMap)).withTimeout(1500),
+                new ParallelCommandGroup(
+                        new RamsetteCommand(chassis,Second),
+                        new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW)
+                ).withTimeout(3000),
+               new GroundGrabLong(arm,elevator,wrist)
+
+               /* new HighBasket(arm, elevator, new Wrist(hardwareMap)).withTimeout(1500),
                 new WaitCommand(500),
                 new WaitCommand(500),
                 new MoveIntake(intake, -1).withTimeout(1500),
@@ -79,7 +95,7 @@ public class HighBasketAndPark extends LinearOpMode {
                 new HighBasket(arm, elevator, new Wrist(hardwareMap)),
                 new WaitCommand(2500),
                 new MoveIntake(intake, 0).withTimeout(2500),
-                new StowAll(arm, elevator, new Wrist(hardwareMap))
+                new StowAll(arm, elevator, new Wrist(hardwareMap))*/
 
         );
 

@@ -21,7 +21,7 @@ public final class Constants {
 
         public static final double ARM_CLIMB = 90;
         public static final double ARM_LOWBASKET = 45;
-        public static final double ARM_HIGHBASKET = 60;
+        public static final double ARM_HIGHBASKET = 90;
 
         // CHAMBERS
         public static final double ARM_LOWCHAMBER = 0;
