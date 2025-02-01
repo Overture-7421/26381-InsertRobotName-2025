@@ -5,45 +5,51 @@ public final class Constants {
 
     /* WRIST POSITIONS */
     public static class Wrist {
-        public static final double WRIST_STOW = 0;
-        public static final double WRIST_EXTEND_SHORT = 1.0;
-        public static final double WRIST_EXTEND_MEDIUM = 1.5;
-        public static final double WRIST_EXTEND_LONG = 2.0;
+        public static final double WRIST_STOW = 0.1;
+        public static final double WRIST_EXTEND_SHORT = 0.2;
+        public static final double WRIST_EXTEND_MEDIUM = 0.4;
+        public static final double WRIST_EXTEND_LONG = 0.7;
+    }
+
+    /* INTAKE POSITIONS */
+    public static class Intake{
+        public static final double INTAKE_STOW = 0.1;
+        public static final double INTAKE_OPEN = 0.4;
     }
 
     /* ARM POSITIONS */
     public static class Arm {
-        public static final double ARM_STOW = -20;
+        public static final double ARM_STOW = -10;
 
-        public static final double ARM_GROUDGRAB_SHORT = -10;
-        public static final double ARM_GROUDGRAB_MEDIUM = -15;
-        public static final double ARM_GROUDGRAB_LONG = -20;
+        public static final double ARM_GROUDGRAB_SHORT = -18;
+        public static final double ARM_GROUDGRAB_MEDIUM = -10;
+        public static final double ARM_GROUDGRAB_LONG = -5;
 
         public static final double ARM_CLIMB = 90;
-        public static final double ARM_LOWBASKET = 88;
-        public static final double ARM_HIGHBASKET = 88;
+        public static final double ARM_LOWBASKET = 45;
+        public static final double ARM_HIGHBASKET = 90;
 
         // CHAMBERS
-        public static final double ARM_LOWCHAMBER = 89;
-        public static final double ARM_HIGHCHAMBER = 89;
+        public static final double ARM_LOWCHAMBER = 0;
+        public static final double ARM_HIGHCHAMBER = 45;
     }
 
     /* ELEVATOR POSITIONS */
     public static class Elevator {
         public static final double ELEVATOR_STOW = 0;
 
-        public static final double ELEVATOR_GROUDGRAB_SHORT = 13;
-        public static final double ELEVATOR_GROUDGRAB_MEDIUM = 18;
-        public static final double ELEVATOR_GROUDGRAB_LONG = 28;
+        public static final double ELEVATOR_GROUDGRAB_SHORT = 30;
+        public static final double ELEVATOR_GROUDGRAB_MEDIUM = 40;
+        public static final double ELEVATOR_GROUDGRAB_LONG = 50;
 
 
         public static final double ELEVATOR_CLIMB = 50;
         public static final double ELEVATOR_LOWBASKET = 39;
-        public static final double ELEVATOR_HIGHBASKET = 69;
+        public static final double ELEVATOR_HIGHBASKET = 75;
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3;
-        public static final double ELEVATOR_HIGHCHAMBER = 36;
+        public static final double ELEVATOR_HIGHCHAMBER = 30;
 
     }
 }

@@ -20,7 +20,7 @@ public class StowAll extends SequentialCommandGroup {
                 new MoveWrist(wrist, Constants.Wrist.WRIST_STOW)
 ,               new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW).withTimeout(500)),
 
-                new WaitCommand(400),
+                new WaitCommand(500),
                 new MoveArm(arm, Constants.Arm.ARM_STOW).withTimeout(300)
         );
     }

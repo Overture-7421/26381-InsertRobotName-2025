@@ -1,30 +1,33 @@
 package org.firstinspires.ftc.teamcode.Commands.Intake;
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.util.Timing;
+
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+
+import java.util.concurrent.TimeUnit;
 
 public class MoveIntake extends CommandBase {
 
     private final Intake intake;
-    private final double speed;
+    private double intakePosition;
 
-    public MoveIntake(Intake intake, double speed) {
+    private Timing.Timer timer;
+
+    public MoveIntake(Intake intake, double intakePosition) {
         this.intake = intake;
-        this.speed = speed;
+        this.intakePosition = intakePosition;
+        timer = new Timing.Timer(1, TimeUnit.SECONDS);
         addRequirements(intake); // Declare subsystem dependency
     }
 
     @Override
-    public void execute() {
-        intake.setSpeed(speed); // Set the servo speed
+    public void initialize() {
+        intake.IntakePosition(intakePosition);
+        timer.start();
     }
 
     @Override
-    public void end(boolean interrupted) {
-        intake.stop(); // Stop the servo when the command ends
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false; // This command runs continuously
+    public boolean isFinished(){
+        return timer.done();
     }
 }
