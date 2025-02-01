@@ -20,11 +20,11 @@ public final class Constants {
         public static final double ARM_GROUDGRAB_LONG = -20;
 
         public static final double ARM_CLIMB = 90;
-        public static final double ARM_LOWBASKET = 88;
-        public static final double ARM_HIGHBASKET = 88;
+        public static final double ARM_LOWBASKET = 45;
+        public static final double ARM_HIGHBASKET = 60;
 
         // CHAMBERS
-        public static final double ARM_LOWCHAMBER = 45;
+        public static final double ARM_LOWCHAMBER = 0;
         public static final double ARM_HIGHCHAMBER = 45;
     }
 
