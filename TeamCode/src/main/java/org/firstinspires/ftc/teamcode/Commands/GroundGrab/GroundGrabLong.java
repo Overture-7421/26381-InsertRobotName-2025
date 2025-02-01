@@ -18,7 +18,7 @@ public class GroundGrabLong extends SequentialCommandGroup  {
                 new MoveArm(arm, Constants.Arm.ARM_GROUDGRAB_LONG).withTimeout(1000),
                 new WaitCommand(500),
                 new ParallelCommandGroup( new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUDGRAB_LONG).withTimeout(1000),
-                        new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM).withTimeout(1000)
+                        new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG).withTimeout(1000)
                 )
         );
 

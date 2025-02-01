@@ -10,7 +10,7 @@ public class Intake extends SubsystemBase {
     private ServoEx intakeServo;
 
     public Intake(HardwareMap hardwareMap){
-    intakeServo = new SimpleServo(hardwareMap, "intake", 0.0, 1.0);
+    intakeServo = new SimpleServo(hardwareMap, "intake", 0.1, 0.5);
     }
 
     public void IntakePosition(double position) {

@@ -5,10 +5,17 @@ public final class Constants {
 
     /* WRIST POSITIONS */
     public static class Wrist {
-        public static final double WRIST_STOW = 0;
-        public static final double WRIST_EXTEND_SHORT = 1.0;
-        public static final double WRIST_EXTEND_MEDIUM = 1.5;
-        public static final double WRIST_EXTEND_LONG = 2.0;
+        public static final double WRIST_STOW = 0.1;
+        public static final double WRIST_EXTEND_SHORT = 0.2;
+        public static final double WRIST_EXTEND_MEDIUM = 0.4;
+        public static final double WRIST_EXTEND_LONG = 0.5;
+    }
+
+    /* INTAKE POSITIONS */
+    public static class Intake{
+        public static final double INTAKE_STOW = 0.1;
+        public static final double INTAKE_OPEN = 0.4;
+        public static final double INTAKE_GRAB = 0.2;
     }
 
     /* ARM POSITIONS */
@@ -39,7 +46,7 @@ public final class Constants {
 
         public static final double ELEVATOR_CLIMB = 50;
         public static final double ELEVATOR_LOWBASKET = 39;
-        public static final double ELEVATOR_HIGHBASKET = 69;
+        public static final double ELEVATOR_HIGHBASKET = 70;
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3;

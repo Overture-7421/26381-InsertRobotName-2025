@@ -57,45 +57,30 @@ public class HighBasketAndPark extends LinearOpMode {
                 new Pose2d(-1.08, 0.28,Rotation2d.fromDegrees(45))), ReverseConfig
         );
 
-        Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
+        /*Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(-1.08,0.28,Rotation2d.fromDegrees(45)),
                 new Pose2d(-0.90, 0.60,Rotation2d.fromDegrees(60))), ForwardConfig
-        );
+        );*/
 
 
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
 
                 new RamsetteCommand(chassis, First),
-                new HighBasket(arm, elevator,wrist),
-                new WaitCommand(2000),
-                new ParallelCommandGroup(
-                        new RamsetteCommand(chassis,Second),
-                        new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_STOW)
-                ).withTimeout(3000),
-               new GroundGrabLong(arm,elevator,wrist)
-
-               /* new HighBasket(arm, elevator, new Wrist(hardwareMap)).withTimeout(1500),
-                new WaitCommand(500),
-                new WaitCommand(500),
-                new MoveIntake(intake, -1).withTimeout(1500),
-                new StowAll(arm, elevator, new Wrist(hardwareMap)),
-                new WaitCommand(500),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(-90)),
-                new WaitCommand(500) ,
-                new MoveArm(arm, -35).withTimeout(500),
-
-                new ParallelCommandGroup(
-
-                        new ElevatorPositions(elevator, 33).withTimeout(1500),
-                        new MoveIntake(intake, 1).withTimeout(500)),
-
-                new StowAll(arm, elevator, new Wrist(hardwareMap)),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(45)),
-                new HighBasket(arm, elevator, new Wrist(hardwareMap)),
-                new WaitCommand(2500),
-                new MoveIntake(intake, 0).withTimeout(2500),
-                new StowAll(arm, elevator, new Wrist(hardwareMap))*/
+                new HighBasket(arm, elevator, wrist, intake), //Pending Test
+                new StowAll(arm, elevator, wrist),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(90)),
+                new GroundGrabLong(arm, elevator, wrist),
+                new MoveIntake(intake, Constants.Intake.INTAKE_GRAB),
+                new StowAll(arm, elevator, wrist),
+                new MoveIntake(intake, Constants.Intake.INTAKE_STOW)
+                //Test Later
+                /*new GroundGrabLong(arm, elevator, wrist),
+                new MoveIntake(intake, 0.3),
+                new StowAll(arm, elevator, wrist),
+                new HighBasket(arm, elevator, wrist), //Pending Test
+                new StowAll(arm, elevator, wrist),
+                new MoveIntake(intake, 0.1).withTimeout(700)*/
 
         );
 
