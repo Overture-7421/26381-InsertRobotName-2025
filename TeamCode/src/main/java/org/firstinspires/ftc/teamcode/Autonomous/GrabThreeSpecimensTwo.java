@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -12,13 +10,7 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.RobotAutoDriveToAprilTagOmni;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.TurnToAngle;
-import org.firstinspires.ftc.teamcode.Commands.Baskets.LowBasket;
-import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabLong;
-import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
-import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.GroundGrab;
+package org.firstinspires.ftc.teamcode.Commands.Grab;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
