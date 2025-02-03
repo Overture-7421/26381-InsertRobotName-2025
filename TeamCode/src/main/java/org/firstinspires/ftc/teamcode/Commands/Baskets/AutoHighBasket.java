@@ -9,12 +9,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ElevatorPositions;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
-public class HighBasket extends SequentialCommandGroup {
-    public HighBasket(Arm arm, Elevator elevator, Wrist wrist){
+
+public class AutoHighBasket extends SequentialCommandGroup {
+
+    public AutoHighBasket(Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
-                new MoveArm(arm, Constants.Arm.ARM_HIGHBASKET).withTimeout(500),
+                new MoveArm(arm, Constants.Arm.ARM_AUTO_HIGHBASKET).withTimeout(500),
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_HIGHBASKET).withTimeout(2000),
-                new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM).withTimeout(200)
+                new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG).withTimeout(200)
         );
 
     }

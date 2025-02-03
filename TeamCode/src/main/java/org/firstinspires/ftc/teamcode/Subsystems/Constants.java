@@ -7,8 +7,8 @@ public final class Constants {
     public static class Wrist {
         public static final double WRIST_STOW = 0.1;
         public static final double WRIST_EXTEND_SHORT = 0.2;
-        public static final double WRIST_EXTEND_MEDIUM = 0.4;
-        public static final double WRIST_EXTEND_LONG = 0.7;
+        public static final double WRIST_EXTEND_MEDIUM = 0.55;
+        public static final double WRIST_EXTEND_LONG = 0.8;
     }
 
     /* INTAKE POSITIONS */
@@ -27,6 +27,7 @@ public final class Constants {
 
         public static final double ARM_CLIMB = 90;
         public static final double ARM_LOWBASKET = 45;
+        public static final double ARM_AUTO_HIGHBASKET = 65;
         public static final double ARM_HIGHBASKET = 90;
 
         // CHAMBERS
