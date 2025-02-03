@@ -50,7 +50,7 @@ public final class Constants {
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3;
-        public static final double ELEVATOR_HIGHCHAMBER = 30;
+        public static final double ELEVATOR_HIGHCHAMBER = 39;
 
     }
 }

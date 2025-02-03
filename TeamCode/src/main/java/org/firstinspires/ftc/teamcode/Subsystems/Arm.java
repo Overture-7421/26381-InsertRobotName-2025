@@ -33,12 +33,12 @@ public class Arm extends SubsystemBase {
         armPID = new PIDController(p, 0, 0.0);
 
         right_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         right_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         left_Motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        left_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        left_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         left_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
