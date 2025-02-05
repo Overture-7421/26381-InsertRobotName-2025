@@ -24,9 +24,9 @@ public class ModifyArmCommand extends CommandBase {
     public void execute() {
         if (gamepad != null) {
             if (gamepad.dpad_up) {
-                arm.setTarget(arm.getPosition() + INCREMENT);
+                arm.increaseTarget();
             } else if (gamepad.dpad_down) {
-                arm.setTarget(arm.getPosition() - INCREMENT);
+                arm.decreaseTarget();
             }
         }
     }

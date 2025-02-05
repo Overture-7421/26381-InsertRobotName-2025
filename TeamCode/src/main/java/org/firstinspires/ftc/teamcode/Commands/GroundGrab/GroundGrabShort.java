@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Commands.Grab;
+package org.firstinspires.ftc.teamcode.Commands.GroundGrab;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -15,11 +15,10 @@ public class GroundGrabShort extends SequentialCommandGroup {
 
     public GroundGrabShort(Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
-
                 new MoveArm(arm, Constants.Arm.ARM_GROUDGRAB_SHORT).withTimeout(1000),
                 new WaitCommand(500),
                 new ParallelCommandGroup( new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_GROUDGRAB_SHORT).withTimeout(1000),
-                new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG).withTimeout(1000)
+                        new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG).withTimeout(1000)
                 )
         );
 
