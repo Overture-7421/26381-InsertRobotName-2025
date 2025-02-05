@@ -9,15 +9,20 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.command.button.Button;
 
 import org.firstinspires.ftc.teamcode.Commands.Arm.ModifyArmCommand;
+import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.AutoHighBasket;
+import org.firstinspires.ftc.teamcode.Commands.Baskets.HighBasket;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.LowBasket;
 import org.firstinspires.ftc.teamcode.Commands.Chambers.HighChamber;
 import org.firstinspires.ftc.teamcode.Commands.Chambers.LowChamber;
+import org.firstinspires.ftc.teamcode.Commands.Climber.Climb;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ModifyElevatorCommand;
-import org.firstinspires.ftc.teamcode.Commands.Grab.GrabSpecimens;
-import org.firstinspires.ftc.teamcode.Commands.Grab.GroundGrabLong;
-import org.firstinspires.ftc.teamcode.Commands.Grab.GroundGrabMedium;
-import org.firstinspires.ftc.teamcode.Commands.Grab.GroundGrabShort;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GrabSpecimens;
+
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabLong;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabMedium;
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabShort;
+
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.Wrist.MoveWrist;
 import org.firstinspires.ftc.teamcode.Commands.Drive;
@@ -75,16 +80,9 @@ public class MainSystem extends LinearOpMode {
                     driverButtonY.whenReleased(new GroundGrabMedium(arm, elevator, wrist));
 
                     // LONG GROUND GRAB
-                   Button driverRightBumper = driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
-                    driverRightBumper.whenHeld(new GroundGrabLong(arm, elevator, wrist));
-                    driverRightBumper.whenReleased(new GroundGrabLong(arm, elevator, wrist));
-                    driverRightBumper.whenHeld(new MoveIntake(intake, Constants.Intake.INTAKE_OPEN));
+                    Button driverRightBumper = driver.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
+                    driverRightBumper.whenHeld(new GroundGrabLong(arm, elevator, wrist, driver, operator));
                     driverRightBumper.whenReleased(new MoveIntake(intake, Constants.Intake.INTAKE_OPEN));
-
-
-
-
-
 
 
         // MANUAL WRIST
@@ -92,10 +90,10 @@ public class MainSystem extends LinearOpMode {
             operatorDPadLeft.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM));
 
             Button operatorDPadDown = operator.getGamepadButton(GamepadKeys.Button.DPAD_DOWN);
-            operatorDPadDown.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_STOW));
+            operatorDPadDown.whenPressed(new MoveArm(arm, 0));
 
             Button operatorDPadRight = operator.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT);
-            operatorDPadRight.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG));
+            operatorDPadRight.whenPressed(new StowAll(arm, elevator, wrist));
 
             Button operatorDPadUp = operator.getGamepadButton(GamepadKeys.Button.DPAD_UP);
             operatorDPadUp.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_SHORT));
@@ -104,8 +102,6 @@ public class MainSystem extends LinearOpMode {
         Button operatorLeftBumper= operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
         operatorLeftBumper.whenHeld(new GrabSpecimens(arm, elevator,wrist));
         operatorLeftBumper.whenReleased(new GrabSpecimens(arm, elevator, wrist));
-
-
 
             // MANUAL ARM
             modifyArmCommand = new ModifyArmCommand(arm);
@@ -120,7 +116,7 @@ public class MainSystem extends LinearOpMode {
         /* GAME ROUTINES */
             // BASKETS
             Button operatorBButton= operator.getGamepadButton(GamepadKeys.Button.B);
-            operatorBButton.whenPressed(new AutoHighBasket(arm, elevator, wrist));
+            operatorBButton.whenPressed(new HighBasket(arm, elevator, wrist));
 
             Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
             operatorAButton.whenPressed(new LowBasket(arm, elevator, wrist));
@@ -137,8 +133,10 @@ public class MainSystem extends LinearOpMode {
             operatorRightBumper.whenPressed(new StowAll(arm, elevator, wrist));
 
             // CLIMB
-            //Button driverLeftBumper = driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-            //driverLeftBumper.whenPressed(new Climb(arm, elevator, wrist));
+            Button driverLeftBumper = driver.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
+            driverLeftBumper.whenPressed(new Climb(arm, elevator, wrist));
+
+
 
         waitForStart();
         chassis.reset(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
@@ -155,9 +153,12 @@ public class MainSystem extends LinearOpMode {
                 telemetry.addData("LeftDistance", chassis.leftDistance());
                 telemetry.addLine("---- MEASUREMENTS ---");
                 telemetry.addData("Elevator Distance", elevator.getHeight());
+                telemetry.addData("Elevator Target", elevator.target);
                 telemetry.addData("Arm Position", arm.getPosition());
                 telemetry.addData("Right Servo:", wrist.getRightServoPosition());
                 telemetry.addData("Left Servo:", wrist.getLeftServoPosition());
+
+                telemetry.addData(" LIMIT SWITCH PRESSED", arm.isLimitReached());
 
             // -- UPDATE TELEMETRY -- //
                 telemetry.update();

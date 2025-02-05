@@ -18,14 +18,15 @@ public class HighChamber extends SequentialCommandGroup {
 
     public HighChamber (Arm arm, Elevator elevator, Wrist wrist, Intake intake){
         addCommands(
-
-                new MoveArm(arm, Constants.Arm.ARM_HIGHCHAMBER).withTimeout(1000),
                 new ParallelCommandGroup(
-                        new MoveWrist(wrist, 0.75),
-                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_HIGHCHAMBER)).withTimeout(1000),
-                new WaitCommand(5000),
-               // new MoveWrist(wrist, 0.85),
-                new MoveArm(arm, 35.0 ).withTimeout(1500)
+                new MoveArm(arm, Constants.Arm.ARM_HIGHCHAMBER).withTimeout(1500),
+                        new MoveWrist(wrist, 0.6)),
+                new WaitCommand(3000),
+                new ParallelCommandGroup(
+                        new MoveWrist(wrist, 0.3),
+                new ElevatorPositions(elevator, 31).withTimeout(2000)),
+                new MoveIntake(intake, 0.4)
+
                //new MoveIntake(intake, Constants.Intake.INTAKE_OPEN)
                 //new StowAll(arm, elevator, wrist)
         );
