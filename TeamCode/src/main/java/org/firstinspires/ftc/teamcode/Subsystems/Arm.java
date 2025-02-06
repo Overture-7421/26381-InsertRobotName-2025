@@ -23,8 +23,14 @@ public class Arm extends SubsystemBase {
     public static final double COUNTS_PER_REV = 8192;
     private static final double OFFSET = 31;
     public static double target = -31;
-    public static double ff = 0.5; //Previous 0.499
-    public static double p = 0.045;
+
+    public static double ff = 0.06;
+    public static double pUpper = 0.030;
+    public static double pLower = 0.004;
+
+    public static double dUpper = 0.00;
+    public static double dLower = 0.00;
+
 
     private int currentOffset = 0;
     private final int expectedZeroPosition = 0;
@@ -36,7 +42,7 @@ public class Arm extends SubsystemBase {
         right_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_ArmMotor");
         left_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_ArmMotor");
 
-        armPID = new PIDController(p, 0, 0.0);
+        armPID = new PIDController(pUpper, 0, dUpper);
 
         right_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -86,23 +92,33 @@ public class Arm extends SubsystemBase {
 
         if (isLimitSwitchPressed && !limitSwitchPreviouslyPressed) {
             int encoderAtLimitSwitch = left_Motor.getCurrentPosition();
-            int offset = expectedZeroPosition - encoderAtLimitSwitch;
+            currentOffset = expectedZeroPosition - encoderAtLimitSwitch;
 
             left_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
             limitSwitchPreviouslyPressed = true;
-
         } else if (!isLimitSwitchPressed) {
             limitSwitchPreviouslyPressed = false;
         }
 
         int adjustedEncoderPosition = left_Motor.getCurrentPosition() + currentOffset;
+        double motorOutput = armPID.calculate(adjustedEncoderPosition, target);
 
+        left_Motor.setPower(motorOutput + armFeedForward(adjustedEncoderPosition));
+        right_Motor.setPower(motorOutput + armFeedForward(adjustedEncoderPosition));
 
-        double motorOutput = armPID.calculate(getPosition(), target);
-        left_Motor.setPower(motorOutput + armFeedForward(getPosition()));
-        right_Motor.setPower(motorOutput + armFeedForward(getPosition()));
+        if (target > getPosition()){
+            armPID.setP(pUpper);
+            armPID.setD(dUpper);
+        } else if (target < getPosition()) {
+            armPID.setP(pLower);
+            armPID.setD(dLower);
+        }
+
+        //double motorOutput = armPID.calculate(getPosition(), target);
+        //left_Motor.setPower(motorOutput + armFeedForward(getPosition()));
+        //right_Motor.setPower(motorOutput + armFeedForward(getPosition()));
     }
 
 }

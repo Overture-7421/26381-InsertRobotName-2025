@@ -7,7 +7,7 @@ public final class Constants {
     public static class Wrist {
         public static final double WRIST_STOW = 0.1;
         public static final double WRIST_EXTEND_SHORT = 0.2;
-        public static final double WRIST_EXTEND_MEDIUM = 0.60;
+        public static final double WRIST_EXTEND_MEDIUM = 0.4;
         public static final double WRIST_EXTEND_LONG = 0.8;
     }
 
@@ -28,7 +28,7 @@ public final class Constants {
         public static final double ARM_CLIMB = 90;
         public static final double ARM_LOWBASKET = 45;
         public static final double ARM_AUTO_HIGHBASKET = 65;
-        public static final double ARM_HIGHBASKET = 60;
+        public static final double ARM_HIGHBASKET = 80;
 
         // CHAMBERS
         public static final double ARM_LOWCHAMBER = 0;
@@ -55,7 +55,7 @@ public final class Constants {
            */
 
         public static final double ELEVATOR_LOWBASKET = 39; // 15 in
-        public static final double ELEVATOR_HIGHBASKET = 71.5; //29 in
+        public static final double ELEVATOR_HIGHBASKET = 68; //29 in
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3; // 1.1 in
