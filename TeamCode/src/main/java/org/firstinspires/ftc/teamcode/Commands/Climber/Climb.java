@@ -23,7 +23,7 @@ public class Climb extends SequentialCommandGroup {
                 new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_CLIMB).withTimeout(300),
                 new MoveWrist(wrist, 0.7)),
 
-                new WaitForButton(operatorGamepad, GamepadKeys.Button.Y),
+                new WaitForButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN),
                 new MoveWrist(wrist, 0.1)
 
         );
