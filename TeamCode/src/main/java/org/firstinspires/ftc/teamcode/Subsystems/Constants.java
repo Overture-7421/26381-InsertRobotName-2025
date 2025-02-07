@@ -36,7 +36,7 @@ public final class Constants {
 
     /* ELEVATOR POSITIONS in cm*/
     public static class Elevator {
-        public static final double ELEVATOR_STOW = 2; // 0 in
+        public static final double ELEVATOR_STOW = 0; // 0 in
 
         public static final double ELEVATOR_GROUDGRAB_LONG = 50; // 20 in
 
