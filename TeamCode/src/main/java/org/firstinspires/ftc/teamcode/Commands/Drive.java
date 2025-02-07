@@ -25,7 +25,20 @@ public class Drive extends CommandBase {
     @Override
     public void execute(){
         double right = driverGamepad.right_stick_x; //Input of the Joysticks
-        double left = - driverGamepad.left_stick_y;
+        double left = -driverGamepad.left_stick_y;
+
+        double turnRight = driverGamepad.right_trigger;
+        double turnLeft = driverGamepad.left_trigger;
+
+        right = OverJoystickHandler.handleJoystickInput(right); //Asign Values of Joysticks
+        left = OverJoystickHandler.handleJoystickInput(left);
+
+        if (turnRight > 0){
+            left = -1;
+        }
+        if (turnLeft > 0){
+            left = 1;
+        }
 
         right = -OverJoystickHandler.handleJoystickInput(right); //Asign Values of Joysticks
         left = OverJoystickHandler.handleJoystickInput(left);
