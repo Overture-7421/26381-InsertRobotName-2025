@@ -86,7 +86,7 @@ public class Elevator extends SubsystemBase {
         if(getHeight() > 70) {
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
-        } else if (getHeight() < - 0.1){
+        } else if (getHeight() < - 0.1 && target <= 0.0){
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
         } else {
