@@ -7,7 +7,7 @@ public final class Constants {
     public static class Wrist {
         public static final double WRIST_STOW = 0.1;
         public static final double WRIST_EXTEND_SHORT = 0.2;
-        public static final double WRIST_EXTEND_MEDIUM = 0.60;
+        public static final double WRIST_EXTEND_MEDIUM = 0.4;
         public static final double WRIST_EXTEND_LONG = 0.8;
     }
 
@@ -21,14 +21,13 @@ public final class Constants {
     public static class Arm {
         public static final double ARM_STOW = -31;
 
-        public static final double ARM_GROUDGRAB_SHORT = -18;
-        public static final double ARM_GROUDGRAB_MEDIUM = -10;
-        public static final double ARM_GROUDGRAB_LONG = -5;
+
+        public static final double ARM_GROUDGRAB_LONG = 5;
 
         public static final double ARM_CLIMB = 90;
-        public static final double ARM_LOWBASKET = 45;
+        public static final double ARM_LOWBASKET = 50;
         public static final double ARM_AUTO_HIGHBASKET = 65;
-        public static final double ARM_HIGHBASKET = 60;
+        public static final double ARM_HIGHBASKET = 80;
 
         // CHAMBERS
         public static final double ARM_LOWCHAMBER = 0;
@@ -39,12 +38,10 @@ public final class Constants {
     public static class Elevator {
         public static final double ELEVATOR_STOW = 2; // 0 in
 
-        public static final double ELEVATOR_GROUDGRAB_SHORT = 30; // 11 in
-        public static final double ELEVATOR_GROUDGRAB_MEDIUM = 40; // 15 in
         public static final double ELEVATOR_GROUDGRAB_LONG = 50; // 20 in
 
 
-        public static final double ELEVATOR_CLIMB = 50; // 20 in
+        public static final double ELEVATOR_CLIMB = 15; // 20 in
 
           /*
             Clarification:
@@ -54,8 +51,8 @@ public final class Constants {
                     HorizontalExtension = cosine(armAngle) * ElevatorExtension
            */
 
-        public static final double ELEVATOR_LOWBASKET = 39; // 15 in
-        public static final double ELEVATOR_HIGHBASKET = 71.5; //29 in
+        public static final double ELEVATOR_LOWBASKET = 45; // 15 in
+        public static final double ELEVATOR_HIGHBASKET = 68; //29 in
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 3; // 1.1 in

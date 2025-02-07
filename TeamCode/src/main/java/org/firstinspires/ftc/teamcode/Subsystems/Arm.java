@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.overture.ftc.overftclib.Contollers.PIDController;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
@@ -17,26 +17,33 @@ public class Arm extends SubsystemBase {
     private final DcMotorEx right_Motor;
     private final DcMotorEx left_Motor;
     private final PIDController armPID;
-    private final Telemetry telemetry;
+//    private final Telemetry telemetry;
     private final DigitalChannel limitSwitch;
 
     public static final double COUNTS_PER_REV = 8192;
     private static final double OFFSET = 31;
     public static double target = -31;
-    public static double ff = 0.5; //Previous 0.499
-    public static double p = 0.045;
 
-    private int currentOffset = 0;
+    public static double ff = 0.06;
+    public static double pUpper = 0.05;
+    public static double pLower = 0.01;
+
+    public static double dUpper = 0.00117;
+    public static double dLower = 0.0005;
+
+
+    private double currentOffset = 0;
     private final int expectedZeroPosition = 0;
     private boolean limitSwitchState = false;
 
     public Arm(HardwareMap hardwareMap) {
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
+//        FtcDashboard dashboard = FtcDashboard.getInstance();
+//        telemetry = dashboard.getTelemetry();
         right_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "right_ArmMotor");
         left_Motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_ArmMotor");
 
-        armPID = new PIDController(p, 0, 0.0);
+        armPID = new PIDController(0, 0, 0);
+        armPID.setTolerance(1);
 
         right_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -82,27 +89,42 @@ public class Arm extends SubsystemBase {
 
     @Override
     public void periodic() {
-        boolean isLimitSwitchPressed = limitSwitch.getState();
+//        boolean isLimitSwitchPressed = limitSwitch.getState();
+//
+//        if (isLimitSwitchPressed && !limitSwitchPreviouslyPressed) {
+//            int encoderAtLimitSwitch = left_Motor.getCurrentPosition();
+//            currentOffset = expectedZeroPosition - encoderAtLimitSwitch;
+//
+//            left_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//            left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//
+//            limitSwitchPreviouslyPressed = true;
+//        } else if (!isLimitSwitchPressed) {
+//            limitSwitchPreviouslyPressed = false;
+//        }
 
-        if (isLimitSwitchPressed && !limitSwitchPreviouslyPressed) {
-            int encoderAtLimitSwitch = left_Motor.getCurrentPosition();
-            int offset = expectedZeroPosition - encoderAtLimitSwitch;
-
-            left_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-            limitSwitchPreviouslyPressed = true;
-
-        } else if (!isLimitSwitchPressed) {
-            limitSwitchPreviouslyPressed = false;
+        if (target > getPosition()){
+            armPID.setP(pUpper);
+            armPID.setD(dUpper);
+        } else if (target < getPosition()) {
+            armPID.setP(pLower);
+            armPID.setD(dLower);
         }
 
-        int adjustedEncoderPosition = left_Motor.getCurrentPosition() + currentOffset;
+        double adjustedEncoderPosition = getPosition() + currentOffset;
+        double motorOutput = armPID.calculate(adjustedEncoderPosition, target);
 
-
-        double motorOutput = armPID.calculate(getPosition(), target);
-        left_Motor.setPower(motorOutput + armFeedForward(getPosition()));
-        right_Motor.setPower(motorOutput + armFeedForward(getPosition()));
+        left_Motor.setPower(motorOutput + armFeedForward(adjustedEncoderPosition));
+        right_Motor.setPower(motorOutput + armFeedForward(adjustedEncoderPosition));
+//
+//        telemetry.addData("Output", motorOutput);
+//        telemetry.addData("Target", target);
+//        telemetry.addData("Current Angle", getPosition());
+//        telemetry.addData("Feedforward", armFeedForward(adjustedEncoderPosition));
+//        telemetry.addData("Error", armPID.getPositionError());
+//        telemetry.addData("At Setpoint", armPID.atSetPoint());
+//
+//        telemetry.update();
     }
 
 }
