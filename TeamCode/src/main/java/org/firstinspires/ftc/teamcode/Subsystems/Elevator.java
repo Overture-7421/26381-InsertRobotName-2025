@@ -17,8 +17,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Elevator extends SubsystemBase {
 
-//    public static double d;
-  //  public static double p;
+    //public static double d;
+    //public static double p;
     private final Telemetry telemetry;
 
     private final DcMotorEx right_elevatorMotor;
@@ -49,9 +49,6 @@ public class Elevator extends SubsystemBase {
         right_elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         left_elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-
-
-
     }
 
 
@@ -78,8 +75,6 @@ public class Elevator extends SubsystemBase {
     public void setGoal(double goalHeight) {
         target = goalHeight;
     }
-
-
 
 
     //Periodic actions used for positional Elevator
