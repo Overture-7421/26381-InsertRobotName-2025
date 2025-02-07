@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Config
+//@Config
 public class Arm extends SubsystemBase {
 
     private final DcMotorEx right_Motor;
