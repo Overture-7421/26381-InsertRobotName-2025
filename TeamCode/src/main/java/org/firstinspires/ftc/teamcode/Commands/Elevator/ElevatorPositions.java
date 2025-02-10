@@ -21,6 +21,6 @@ public class ElevatorPositions extends CommandBase {
     @Override
     public boolean isFinished() {
         double currentHeight = elevator.getHeight();
-        return Math.abs(targetHeight - currentHeight) < 0.01;
+        return Math.abs(targetHeight - currentHeight) < 1.3;
     }
 }

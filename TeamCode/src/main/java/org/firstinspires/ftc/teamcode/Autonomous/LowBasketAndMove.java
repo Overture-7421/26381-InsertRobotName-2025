@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -10,18 +11,23 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.ChassisPaths;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
+import org.firstinspires.ftc.teamcode.Subsystems.Constants;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Commands.Baskets.LowBasket;
+import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
 import java.util.Arrays;
 
 
 @Autonomous
-public class GrabThreeSpecimensTwo extends LinearOpMode {
+public class LowBasketAndMove extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,6 +39,7 @@ public class GrabThreeSpecimensTwo extends LinearOpMode {
         Elevator elevator= new Elevator(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         Intake intake = new Intake(hardwareMap);
+        Wrist wrist = new Wrist(hardwareMap);
 
         //Forward
         TrajectoryConfig ForwardConfig = new TrajectoryConfig(0.5,0.2);
@@ -47,57 +54,18 @@ public class GrabThreeSpecimensTwo extends LinearOpMode {
                 new Pose2d(1.45,-0.85,Rotation2d.fromDegrees(0))), ForwardConfig
         );
 
-       /* Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.55,0.55,Rotation2d.fromDegrees(90)),
-                new Pose2d(0.6,1.3,Rotation2d.fromDegrees(90))), ForwardConfig
-        );
-
-        Trajectory Third = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.55,1.3,Rotation2d.fromDegrees(90)),
-                new Pose2d(0.9,1.3,Rotation2d.fromDegrees(-90))), ForwardConfig
-        );*/
-
-        Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-0.85,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-0.85,Rotation2d.fromDegrees(10)),
-                new Pose2d(0.0,-0.95,Rotation2d.fromDegrees(0))), BackwardConfig
-        );
-
-        Trajectory Third = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.0,-0.95,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.45,-1.0,Rotation2d.fromDegrees(0))), ForwardConfig
-        );
-        Trajectory Four = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-1.0,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-1.0,Rotation2d.fromDegrees(10)),
-                new Pose2d(0.1,-1.20,Rotation2d.fromDegrees(0))), BackwardConfig
-        );
-
-        Trajectory Five = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.1,-1.20,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.45,-1.20,Rotation2d.fromDegrees(0))), ForwardConfig
-        );
-
-        Trajectory Six = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-1.35,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-1.39,Rotation2d.fromDegrees(7)),
-                new Pose2d(0.0,-1.40,Rotation2d.fromDegrees(0))), BackwardConfig
-        );
 
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
-                new MoveIntake(intake, 0.1),
-                new RamsetteCommand(chassis, First),
-                /*new RamsetteCommand(chassis, Second),
-                new RamsetteCommand(chassis, Third),*/
-                new RamsetteCommand(chassis, Second),
-                new RamsetteCommand(chassis, Third),
-                //new RamsetteCommand(chassis, Fifth)
-                new RamsetteCommand(chassis, Four),
-                new RamsetteCommand(chassis, Five),
-                new RamsetteCommand(chassis, Six)
-
-
+                new MoveIntake(intake, Constants.Intake.INTAKE_STOW),
+                new LowBasket(arm, elevator, wrist),
+                new ChassisPaths(chassis, 0.0, 0.25).withTimeout(2000),
+                new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
+                new WaitCommand(2000),
+                new ChassisPaths(chassis, 0.0, -0.2).withTimeout(2000),
+                new WaitCommand(2000),
+                new StowAll(arm, elevator, wrist),
+                new WaitCommand(1000)
         );
 
 

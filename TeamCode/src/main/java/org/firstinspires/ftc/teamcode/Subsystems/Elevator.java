@@ -13,13 +13,11 @@ import com.overture.ftc.overftclib.Contollers.PIDController;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 //@Config
-
-
 public class Elevator extends SubsystemBase {
 
-    //public static double d;
-    //public static double p;
-    private final Telemetry telemetry;
+//    public static double d = 0;
+//    public static double p = 0;
+//    private final Telemetry telemetry;
 
     private final DcMotorEx right_elevatorMotor;
     private final DcMotorEx left_elevatorMotor;
@@ -27,17 +25,17 @@ public class Elevator extends SubsystemBase {
     public static final double TICKS_PER_REVOLUTION = 384.5;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 12.0008738;    // In Meters diameter: 3.82 cm
     public static final double GEAR_REDUCTION = 13.7;
-    public  double target = 0;
+    public static double target = 0;
 
     private double motorOffset = 0.0;
 
     public Elevator(HardwareMap hardwareMap) {
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
+//        FtcDashboard dashboard = FtcDashboard.getInstance();
+//        telemetry = dashboard.getTelemetry();
         right_elevatorMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "rightelevator_Motor");
         left_elevatorMotor = (DcMotorEx) hardwareMap.get(DcMotor.class, "leftelevator_Motor");
 
-        elevatorMotorPID = new PIDController(0.090, 0, 0);
+        elevatorMotorPID = new PIDController(0.25, 0, 0);
 
 
         right_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -66,9 +64,10 @@ public class Elevator extends SubsystemBase {
 
 
     public double getHeight() {
-        double rightHeight = getRightHeight();
-        double leftHeight = getLeftHeight();
-        return (rightHeight + leftHeight) / 2.0;
+        return getRightHeight();
+//        double rightHeight = getRightHeight();
+//        double leftHeight = getLeftHeight();
+//        return (rightHeight + leftHeight) / 2.0;
     }
 
 
@@ -80,22 +79,23 @@ public class Elevator extends SubsystemBase {
     //Periodic actions used for positional Elevator
     @Override
     public void periodic() {
-        //elevatorMotorPID.setD(d);
-        //elevatorMotorPID.setP(p);
+//        elevatorMotorPID.setD(d);
+//        elevatorMotorPID.setP(p);
         double outputMotor = elevatorMotorPID.calculate(getHeight(), target);
-        right_elevatorMotor.setPower(outputMotor);
-        left_elevatorMotor.setPower(outputMotor);
 
-        if(getHeight() > 70){
+        if(getHeight() > 70) {
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
-        }
-
-        if(getHeight() < - 0.1){
+        } else if (getHeight() < - 0.1 && target <= 0.0){
             right_elevatorMotor.setPower(0.0);
             left_elevatorMotor.setPower(0.0);
+        } else {
+            right_elevatorMotor.setPower(outputMotor);
+            left_elevatorMotor.setPower(outputMotor);
         }
 
-
+//        telemetry.addData("Target", target);
+//        telemetry.addData("Current Pos", getHeight());
+//        telemetry.update();
     }
 }
