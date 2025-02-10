@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
+import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -33,18 +34,17 @@ public class GrabThreeSpecimensTwo extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
         Intake intake = new Intake(hardwareMap);
 
-
         //Forward
         TrajectoryConfig ForwardConfig = new TrajectoryConfig(0.5,0.2);
         ForwardConfig.setReversed(false);
 
         //Backward
-        TrajectoryConfig BackwardConfig = new TrajectoryConfig(0.5,0.2);
+        TrajectoryConfig BackwardConfig = new TrajectoryConfig(0.6,0.3);
         BackwardConfig.setReversed(true);
 
         Trajectory First = TrajectoryGenerator.generateTrajectory(Arrays.asList(
                 new Pose2d(0.0,0,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.45,-0.6,Rotation2d.fromDegrees(0))), ForwardConfig
+                new Pose2d(1.45,-0.85,Rotation2d.fromDegrees(0))), ForwardConfig
         );
 
        /* Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
@@ -58,35 +58,35 @@ public class GrabThreeSpecimensTwo extends LinearOpMode {
         );*/
 
         Trajectory Second = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-0.6,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-0.6,Rotation2d.fromDegrees(10)),
-                new Pose2d(0.0,-0.7,Rotation2d.fromDegrees(0))), BackwardConfig
+                new Pose2d(1.45,-0.85,Rotation2d.fromDegrees(0)),
+                new Pose2d(1.25,-0.85,Rotation2d.fromDegrees(10)),
+                new Pose2d(0.0,-0.95,Rotation2d.fromDegrees(0))), BackwardConfig
         );
 
         Trajectory Third = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.0,-0.7,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.45,-0.83,Rotation2d.fromDegrees(0))), ForwardConfig
+                new Pose2d(0.0,-0.95,Rotation2d.fromDegrees(0)),
+                new Pose2d(1.45,-1.0,Rotation2d.fromDegrees(0))), ForwardConfig
         );
         Trajectory Four = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-0.83,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-0.83,Rotation2d.fromDegrees(10)),
-                new Pose2d(0.1,-0.95,Rotation2d.fromDegrees(0))), BackwardConfig
+                new Pose2d(1.45,-1.0,Rotation2d.fromDegrees(0)),
+                new Pose2d(1.25,-1.0,Rotation2d.fromDegrees(10)),
+                new Pose2d(0.1,-1.20,Rotation2d.fromDegrees(0))), BackwardConfig
         );
 
         Trajectory Five = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.1,-0.95,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.45,-0.95,Rotation2d.fromDegrees(0))), ForwardConfig
+                new Pose2d(0.1,-1.20,Rotation2d.fromDegrees(0)),
+                new Pose2d(1.45,-1.20,Rotation2d.fromDegrees(0))), ForwardConfig
         );
 
         Trajectory Six = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(1.45,-1.10,Rotation2d.fromDegrees(0)),
-                new Pose2d(1.25,-1.14,Rotation2d.fromDegrees(7)),
-                new Pose2d(0.17,-1.15,Rotation2d.fromDegrees(0))), BackwardConfig
+                new Pose2d(1.45,-1.35,Rotation2d.fromDegrees(0)),
+                new Pose2d(1.25,-1.39,Rotation2d.fromDegrees(7)),
+                new Pose2d(0.0,-1.40,Rotation2d.fromDegrees(0))), BackwardConfig
         );
 
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
-
+                new MoveIntake(intake, 0.1),
                 new RamsetteCommand(chassis, First),
                 /*new RamsetteCommand(chassis, Second),
                 new RamsetteCommand(chassis, Third),*/
