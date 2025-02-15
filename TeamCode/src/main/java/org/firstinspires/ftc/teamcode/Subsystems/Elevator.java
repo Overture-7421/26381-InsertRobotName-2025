@@ -6,6 +6,7 @@ import com.overture.ftc.overftclib.Contollers.TrapezoidProfile;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.overture.ftc.overftclib.Contollers.PIDController;
@@ -22,6 +23,9 @@ public class Elevator extends SubsystemBase {
     private final DcMotorEx right_elevatorMotor;
     private final DcMotorEx left_elevatorMotor;
     private PIDController elevatorMotorPID;
+    public double ActiveBottonReset=0;
+
+    public final DigitalChannel elevatorBotton;
     public static final double TICKS_PER_REVOLUTION = 384.5;
     public static final double ELEVATOR_WINCH_CIRCUMFERENCE = 12.0008738;    // In Meters diameter: 3.82 cm
     public static final double GEAR_REDUCTION = 13.7;
@@ -43,6 +47,9 @@ public class Elevator extends SubsystemBase {
 
         right_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         left_elevatorMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+        elevatorBotton = hardwareMap.get(DigitalChannel .class, "elevator_touch");
+        elevatorBotton.setMode(DigitalChannel.Mode.INPUT);
 
         right_elevatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         left_elevatorMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -79,6 +86,23 @@ public class Elevator extends SubsystemBase {
     //Periodic actions used for positional Elevator
     @Override
     public void periodic() {
+        if (elevatorBotton.getState()==true  && ActiveBottonReset == 0){
+            right_elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            left_elevatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            ActiveBottonReset= 1;
+            right_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            left_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setGoal(0);
+        } else {
+            if (ActiveBottonReset==1 && elevatorBotton.getState() == false){
+                ActiveBottonReset = 0;
+
+                right_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                left_elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+
+
+        }
 //        elevatorMotorPID.setD(d);
 //        elevatorMotorPID.setP(p);
         double outputMotor = elevatorMotorPID.calculate(getHeight(), target);
