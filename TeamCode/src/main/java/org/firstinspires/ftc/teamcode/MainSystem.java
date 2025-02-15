@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Commands.Climber.Climb;
 import org.firstinspires.ftc.teamcode.Commands.Elevator.ModifyElevatorCommand;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GrabSpecimens;
 
+import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GrabSpecimensOrientation;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabHover;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.GroundGrabPick;
 
@@ -81,8 +82,11 @@ public class MainSystem extends LinearOpMode {
 
         // GRAB SPECIMENS
             Button operatorLeftBumper= operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-            operatorLeftBumper.whenHeld(new GrabSpecimens(arm, elevator,wrist));
-            operatorLeftBumper.whenReleased(new GrabSpecimens(arm, elevator, wrist));
+            operatorLeftBumper.whenPressed(new GrabSpecimens(arm, operator, wrist, intake, elevator));
+
+        // GRAB SPECIMENS ORIENTATION
+            Button operatorStartButton = operator.getGamepadButton(GamepadKeys.Button.START);
+            operatorStartButton.whenPressed(new GrabSpecimensOrientation(arm, operator, wrist, intake, elevator));
 
             // MANUAL ARM
             modifyArmCommand = new ModifyArmCommand(arm);
@@ -106,6 +110,11 @@ public class MainSystem extends LinearOpMode {
 
             // CHAMBERS
             Button operatorButtonX = operator.getGamepadButton(GamepadKeys.Button.X);
+            operatorButtonX.whenPressed(new LowChamber(arm, elevator, wrist, operator, intake));
+
+            Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
+            operatorButtonY.whenPressed(new HighChamber(arm, elevator, wrist, intake, operator));
+      
             operatorButtonX.whenHeld(new LowChamber(arm, elevator, wrist, operator));
             operatorButtonX.whenReleased(new StowAll(arm, elevator, wrist));
 

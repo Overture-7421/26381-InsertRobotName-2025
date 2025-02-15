@@ -30,7 +30,7 @@ public final class Constants {
         public static final double ARM_HIGHBASKET = 80;
 
         // CHAMBERS
-        public static final double ARM_LOWCHAMBER = 17;
+        public static final double ARM_LOWCHAMBER = 15;
         public static final double ARM_HIGHCHAMBER = 90;
     }
 
