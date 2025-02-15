@@ -17,6 +17,9 @@ public class Arm extends SubsystemBase {
     private final DcMotorEx right_Motor;
     private final DcMotorEx left_Motor;
     private final PIDController armPID;
+    public final DigitalChannel pushButton;
+    public double ActiveButtonReset = 0;
+
 //    private final Telemetry telemetry;
     private final DigitalChannel limitSwitch;
 
@@ -57,6 +60,8 @@ public class Arm extends SubsystemBase {
 
         limitSwitch = hardwareMap.get(DigitalChannel.class, "armLimitSwitch");
         limitSwitch.setMode(DigitalChannel.Mode.INPUT);
+        pushButton = hardwareMap.get(DigitalChannel.class, "arm_touch");
+        pushButton.setMode(DigitalChannel.Mode.INPUT);
     }
 
     private double armFeedForward(double angle){
@@ -89,6 +94,16 @@ public class Arm extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (pushButton.getState() == false && ActiveButtonReset == 0){
+            right_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            ActiveButtonReset = 1;
+            setTarget(-OFFSET);
+        } else if (ActiveButtonReset == 1 && pushButton.getState() == true){
+            ActiveButtonReset = 0;
+            right_Motor.setMode((DcMotor.RunMode.RUN_WITHOUT_ENCODER));
+            left_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
 //        boolean isLimitSwitchPressed = limitSwitch.getState();
 //
 //        if (isLimitSwitchPressed && !limitSwitchPreviouslyPressed) {
