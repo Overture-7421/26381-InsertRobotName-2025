@@ -99,14 +99,26 @@ public class MainSystem extends LinearOpMode {
             elevator.setDefaultCommand(modifyElevatorCommand);
 
         /* GAME ROUTINES */
-            // BASKETS
-            Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
-            operatorAButton.whenHeld(new LowBasket(arm, elevator, wrist));
-            operatorAButton.whenReleased(new StowAll(arm, elevator, wrist));
+        /*Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
+        operatorAButton.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_STOW));
 
-            Button operatorBButton = operator.getGamepadButton(GamepadKeys.Button.B);
-            operatorBButton.whenHeld(new HighBasket(arm, elevator, wrist));
-            operatorBButton.whenReleased(new StowAll(arm, elevator, wrist));
+        Button operatorBButton = operator.getGamepadButton(GamepadKeys.Button.B);
+        operatorBButton.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM));
+
+        Button operatorXButton = operator.getGamepadButton(GamepadKeys.Button.X);
+        operatorXButton.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_SHORT));
+
+        Button operatorYButton = operator.getGamepadButton(GamepadKeys.Button.Y);
+        operatorYButton.whenPressed(new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_LONG));*/
+
+        // BASKETS
+            //Button operatorAButton= operator.getGamepadButton(GamepadKeys.Button.A);
+            //operatorAButton.whenHeld(new LowBasket(arm, elevator, wrist));
+            //operatorAButton.whenReleased(new StowAll(arm, elevator, wrist));
+
+            //Button operatorBButton = operator.getGamepadButton(GamepadKeys.Button.B);
+            //operatorBButton.whenHeld(new HighBasket(arm, elevator, wrist));
+            //operatorBButton.whenReleased(new StowAll(arm, elevator, wrist));
 
             // CHAMBERS
             Button operatorButtonX = operator.getGamepadButton(GamepadKeys.Button.X);
@@ -114,14 +126,7 @@ public class MainSystem extends LinearOpMode {
 
             Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
             operatorButtonY.whenPressed(new HighChamber(arm, elevator, wrist, intake, operator));
-      
-            operatorButtonX.whenHeld(new LowChamber(arm, elevator, wrist, operator));
-            operatorButtonX.whenReleased(new StowAll(arm, elevator, wrist));
-
-            Button operatorButtonY = operator.getGamepadButton(GamepadKeys.Button.Y);
-            operatorButtonY.whenHeld(new HighChamber(arm, elevator, wrist, intake));
-            operatorButtonY.whenReleased(new StowAll(arm, elevator, wrist));
-
+            
             // STOW ALL
             Button operatorRightBumper = operator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER);
             operatorRightBumper.whenPressed(new StowAll(arm, elevator, wrist));
