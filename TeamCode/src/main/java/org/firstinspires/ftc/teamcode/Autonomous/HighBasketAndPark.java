@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -50,8 +49,8 @@ public class HighBasketAndPark extends LinearOpMode{
         BackwardConfig.setReversed(true);
 
         Trajectory First = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.0,0,Rotation2d.fromDegrees(73)),
-                new Pose2d(0.18,0.47,Rotation2d.fromDegrees(73))), ForwardConfig
+                new Pose2d(0.0,0,Rotation2d.fromDegrees(75)),
+                new Pose2d(0.16,0.50,Rotation2d.fromDegrees(75))), ForwardConfig
         );
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(

@@ -13,8 +13,9 @@ import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
     public class GrabSpecimens extends ParallelCommandGroup {
     public GrabSpecimens (Arm arm, Elevator elevator, Wrist wrist){
         addCommands(
-                new MoveWrist(wrist, 0.05),
-                new MoveArm(arm, -30)
+                new MoveArm(arm, 0),
+                new ElevatorPositions(elevator, 10),
+                new MoveWrist(wrist, Constants.Wrist.WRIST_EXTEND_MEDIUM)
 
         );
     }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+/*package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -37,14 +37,14 @@ public class AutoSpecimenLowCH extends LinearOpMode {
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
                 new MoveIntake(intake, Constants.Intake.INTAKE_STOW),
                 new ChassisPaths(chassis, 0.0, 0.5),
-                new LowChamber(arm, elevator, wrist, GamepadEx),
+                new LowChamber(arm, elevator, wrist,operatorGamepad),
                 new ChassisPaths(chassis, 0.0, 0.5),
                 new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
                 new ChassisPaths(chassis, 0.0, -0.5),
                 new StowAll(arm, elevator, wrist)
         );
 
-        waitForStart();
+        /*waitForStart();
         chassis.reset(new Pose2d());
         CommandScheduler.getInstance().schedule(FirstCommandGroup);
 
@@ -66,5 +66,5 @@ public class AutoSpecimenLowCH extends LinearOpMode {
 
 
     }
-}
+}*/
 
