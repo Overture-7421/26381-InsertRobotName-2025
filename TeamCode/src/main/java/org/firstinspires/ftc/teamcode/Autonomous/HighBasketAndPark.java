@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -10,8 +11,10 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.ChassisPaths;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.TurnToAngle;
+import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.AutoHighBasket;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.AutoGroundGrab;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
@@ -41,7 +44,7 @@ public class HighBasketAndPark extends LinearOpMode{
         Wrist wrist = new Wrist(hardwareMap);
 
         //Forward
-        TrajectoryConfig ForwardConfig = new TrajectoryConfig(0.6,0.3);
+        TrajectoryConfig ForwardConfig = new TrajectoryConfig(0.7,0.4);
         ForwardConfig.setReversed(false);
 
         //Backward
@@ -49,24 +52,38 @@ public class HighBasketAndPark extends LinearOpMode{
         BackwardConfig.setReversed(true);
 
         Trajectory First = TrajectoryGenerator.generateTrajectory(Arrays.asList(
-                new Pose2d(0.0,0,Rotation2d.fromDegrees(75)),
-                new Pose2d(0.16,0.50,Rotation2d.fromDegrees(75))), ForwardConfig
+                new Pose2d(0.0,0,Rotation2d.fromDegrees(45)),
+                new Pose2d(0.39,0.39,Rotation2d.fromDegrees(45))), ForwardConfig
         );
 
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
+                //preloaded piece
                 new RamsetteCommand(chassis, First),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(135)),
-                new AutoHighBasket(arm, elevator, wrist),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-45)),
+                new AutoHighBasket(chassis, arm, elevator, wrist).withTimeout(2000),
+                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(900),
                 new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
+                new WaitCommand(500),
+                new ChassisPaths(chassis, 0.0, 0.4).withTimeout(900),
                 new StowAll(arm, elevator, wrist),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(0)),
+
+                //Rotate towards second piece
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(5)).withTimeout(2000),
+                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(550),
+
+                //Second piece
                 new AutoGroundGrab(arm, elevator, wrist, intake).withTimeout(2000),
+                new MoveArm(arm, -2),
                 new MoveIntake(intake, Constants.Intake.INTAKE_STOW),
                 new StowAll(arm, elevator, wrist),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(135)),
-                new AutoHighBasket(arm, elevator, wrist).withTimeout(2000),
-                new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
+                new ChassisPaths(chassis, 0.0, 0.4).withTimeout(800),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-45)).withTimeout(2000),
+                new AutoHighBasket(chassis, arm, elevator, wrist).withTimeout(2000),
+                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(900),
+                new MoveIntake(intake, Constants.Intake.INTAKE_OPEN).withTimeout(500),
+                new ChassisPaths(chassis, 0.0, 0.4).withTimeout(800),
                 new StowAll(arm, elevator, wrist)
+
         );
 
         waitForStart();
