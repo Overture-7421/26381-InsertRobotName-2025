@@ -82,7 +82,9 @@ public class MainSystem extends LinearOpMode {
 
         // GRAB SPECIMENS
             Button operatorLeftBumper= operator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER);
-            operatorLeftBumper.whenPressed(new GrabSpecimens(arm, operator, wrist, intake, elevator));
+            operatorLeftBumper.whenHeld(new GrabSpecimens(arm, elevator,wrist));
+            operatorLeftBumper.whenReleased(new StowAll(arm, elevator, wrist));
+
 
         // GRAB SPECIMENS ORIENTATION
             Button operatorStartButton = operator.getGamepadButton(GamepadKeys.Button.START);

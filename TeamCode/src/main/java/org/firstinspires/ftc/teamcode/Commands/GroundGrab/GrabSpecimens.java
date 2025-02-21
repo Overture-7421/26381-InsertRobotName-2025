@@ -24,6 +24,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
                 new WaitForButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER),
                 new MoveArm(arm, 0),
                 new StowAll(arm, elevator, wrist)
+
         );
     }
 }

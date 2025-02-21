@@ -26,7 +26,7 @@ public final class Constants {
 
         public static final double ARM_CLIMB = 90;
         public static final double ARM_LOWBASKET = 50;
-        public static final double ARM_AUTO_HIGHBASKET = 65;
+        //public static final double ARM_AUTO_HIGHBASKET = 60;
         public static final double ARM_HIGHBASKET = 80;
 
         // CHAMBERS
@@ -38,7 +38,8 @@ public final class Constants {
     public static class Elevator {
         public static final double ELEVATOR_STOW = 0; // 0 in
 
-        public static final double ELEVATOR_GROUDGRAB_LONG = 50; // 20 in
+        public static final double ELEVATOR_AUTO_GROUDGRAB_LONG = 55; // 24 in
+        public static final double ELEVATOR_GROUDGRAB_LONG = 50; // 22 in
 
 
         public static final double ELEVATOR_CLIMB = 15; // 20 in
@@ -52,7 +53,7 @@ public final class Constants {
            */
 
         public static final double ELEVATOR_LOWBASKET = 45; // 15 in
-        public static final double ELEVATOR_HIGHBASKET = 68; //29 in
+        public static final double ELEVATOR_HIGHBASKET = 70; //29 in
 
         // CHAMBERS
         public static final double ELEVATOR_LOWCHAMBER = 15; // 1.1 in

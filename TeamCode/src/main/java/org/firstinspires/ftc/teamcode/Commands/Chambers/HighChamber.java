@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Commands.Chambers;
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
+
 import org.firstinspires.ftc.teamcode.Commands.WaitForButton;
 import org.firstinspires.ftc.teamcode.Commands.Wrist.MoveWrist;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
 public class HighChamber extends SequentialCommandGroup {
+
 
     public HighChamber (Arm arm, Elevator elevator, Wrist wrist, Intake intake, GamepadEx operator){
         addCommands(
