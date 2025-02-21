@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Commands.Chambers;
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
+import org.firstinspires.ftc.teamcode.Commands.StowAll;
+
 import org.firstinspires.ftc.teamcode.Commands.WaitForButton;
 import org.firstinspires.ftc.teamcode.Commands.Wrist.MoveWrist;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
@@ -9,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Elevator;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
@@ -18,19 +21,16 @@ import org.firstinspires.ftc.teamcode.Subsystems.Wrist;
 
 public class HighChamber extends SequentialCommandGroup {
 
-    public HighChamber (Arm arm, Elevator elevator, Wrist wrist, Intake intake, GamepadEx operatorGamepad){
-        addCommands(
-                new ParallelCommandGroup(
-                new MoveArm(arm, Constants.Arm.ARM_HIGHCHAMBER).withTimeout(1500),
-                        new MoveWrist(wrist, 0.6)),
-                new WaitForButton(operatorGamepad, GamepadKeys.Button.Y),
-                new ParallelCommandGroup(
-                        new MoveWrist(wrist, 0.3),
-                new ElevatorPositions(elevator, 31).withTimeout(2000)),
-                new MoveIntake(intake, 0.4)
 
-               //new MoveIntake(intake, Constants.Intake.INTAKE_OPEN)
-                //new StowAll(arm, elevator, wrist)
-        );
+    public HighChamber (Arm arm, Elevator elevator, Wrist wrist, Intake intake, GamepadEx operator){
+        addCommands(
+                new MoveArm(arm, 40).withTimeout(500),
+                new ElevatorPositions(elevator, Constants.Elevator.ELEVATOR_LOWBASKET),
+                new MoveWrist(wrist, 0.6),
+                new WaitForButton(operator, GamepadKeys.Button.Y),
+                new MoveArm(arm, 20).withTimeout(200),
+                new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
+                new StowAll(arm, elevator, wrist)
+                );
     }
 }

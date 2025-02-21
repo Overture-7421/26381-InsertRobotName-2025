@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+
 import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.arcrobotics.ftclib.geometry.Rotation2d;
 import com.arcrobotics.ftclib.trajectory.Trajectory;
@@ -10,13 +11,15 @@ import com.arcrobotics.ftclib.trajectory.TrajectoryConfig;
 import com.arcrobotics.ftclib.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.ChassisPaths;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.TurnToAngle;
 import org.firstinspires.ftc.teamcode.Commands.Arm.MoveArm;
 import org.firstinspires.ftc.teamcode.Commands.Baskets.AutoHighBasket;
 import org.firstinspires.ftc.teamcode.Commands.GroundGrab.AutoGroundGrab;
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.RamsetteCommand;
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousIndex.TurnToAngle;
+import org.firstinspires.ftc.teamcode.Commands.Baskets.AutoHighBasket;
 import org.firstinspires.ftc.teamcode.Commands.Intake.MoveIntake;
 import org.firstinspires.ftc.teamcode.Commands.StowAll;
 import org.firstinspires.ftc.teamcode.Subsystems.Chassis;
@@ -83,7 +86,6 @@ public class HighBasketAndPark extends LinearOpMode{
                 new MoveIntake(intake, Constants.Intake.INTAKE_OPEN).withTimeout(500),
                 new ChassisPaths(chassis, 0.0, 0.4).withTimeout(800),
                 new StowAll(arm, elevator, wrist)
-
         );
 
         waitForStart();
@@ -106,3 +108,4 @@ public class HighBasketAndPark extends LinearOpMode{
 
     }
 }
+
