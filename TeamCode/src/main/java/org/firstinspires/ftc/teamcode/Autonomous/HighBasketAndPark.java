@@ -62,7 +62,7 @@ public class HighBasketAndPark extends LinearOpMode{
         SequentialCommandGroup FirstCommandGroup = new SequentialCommandGroup(
                 //preloaded piece
                 new RamsetteCommand(chassis, First),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(-45)),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-39)),
                 new AutoHighBasket(chassis, arm, elevator, wrist).withTimeout(2000),
                 new ChassisPaths(chassis, 0.0, -0.4).withTimeout(900),
                 new MoveIntake(intake, Constants.Intake.INTAKE_OPEN),
@@ -71,8 +71,8 @@ public class HighBasketAndPark extends LinearOpMode{
                 new StowAll(arm, elevator, wrist),
 
                 //Rotate towards second piece
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(5)).withTimeout(2000),
-                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(550),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(0)).withTimeout(2000),
+                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(540),
 
                 //Second piece
                 new AutoGroundGrab(arm, elevator, wrist, intake).withTimeout(2000),
@@ -80,9 +80,9 @@ public class HighBasketAndPark extends LinearOpMode{
                 new MoveIntake(intake, Constants.Intake.INTAKE_STOW),
                 new StowAll(arm, elevator, wrist),
                 new ChassisPaths(chassis, 0.0, 0.4).withTimeout(800),
-                new TurnToAngle(chassis, Rotation2d.fromDegrees(-45)).withTimeout(2000),
+                new TurnToAngle(chassis, Rotation2d.fromDegrees(-40)).withTimeout(2000),
                 new AutoHighBasket(chassis, arm, elevator, wrist).withTimeout(2000),
-                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(900),
+                new ChassisPaths(chassis, 0.0, -0.4).withTimeout(920),
                 new MoveIntake(intake, Constants.Intake.INTAKE_OPEN).withTimeout(500),
                 new ChassisPaths(chassis, 0.0, 0.4).withTimeout(800),
                 new StowAll(arm, elevator, wrist)
